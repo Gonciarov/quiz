@@ -3,8 +3,7 @@ import {Helmet} from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
-
+import Less from '../../src/Less.png';
 
 
 const Home = () => (
@@ -19,7 +18,7 @@ const Home = () => (
                 <div className="play-button-container">
                   
                         <Link className='play-button' to="/play/instructions">Play</Link>
-                   
+
                 </div>
                 <div className="auth-container">
                    
@@ -28,6 +27,8 @@ const Home = () => (
                   
                 </div>
                 <h1>Quiz app</h1>
+                <img src = {Less}></img>
+               
                 </section>
             
 
