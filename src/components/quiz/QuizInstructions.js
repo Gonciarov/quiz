@@ -11,7 +11,7 @@ const QuizInstructions = () =>
             <div className="instructions container">
                     <h1>How to play the game</h1>
                     <span className="left"><Link to="/">Back</Link></span>
-                <span className="right"><Link to="/">Okay</Link></span>
+                <span className="right"><Link to="/play/quiz">Okay</Link></span>
                 </div>
                 
         </Fragment>

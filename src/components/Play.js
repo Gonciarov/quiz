@@ -1,9 +1,24 @@
-import React from "react";
+import React, {Component} from "react";
 
 class Play extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            counter: 0
+        }
+    }
+
+    increaseCount = () => {
+        this.setState({
+            counter: 5
+        })
+    }
     render () {
         return (
-            <h1>Hello from Play component</h1>
+            <div>
+                <h1>Counter: {this.state.counter}</h1>
+                <button onClick={this.increaseCount}>Click</button>
+            </div>
         )
     }
 }
