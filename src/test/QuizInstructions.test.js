@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
 import {BrowserRouter as Router} from 'react-router-dom';
-import QuizInstructions from '../components/quiz/QuizInstructions';
+import QuizInstructions from '../components/quiz/Instructions';
 
 test('Back link is on the page', () => {
   render(<QuizInstructions />, {wrapper: Router});
