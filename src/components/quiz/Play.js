@@ -1,17 +1,16 @@
 import React, {Fragment, Component} from 'react';
 import {Helmet} from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-
+import { faCube, faDivide, faLightbulb, faClock } from '@fortawesome/free-solid-svg-icons';
 
 
 class Play extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            counter: 0
-        }
-    };
+    // constructor (props) {
+    //     super(props);
+    //     this.state = {
+    //         counter: 0
+    //     }
+    // };
 
     addCount = () => {
         this.setState({
@@ -25,7 +24,13 @@ class Play extends React.Component {
     <Helmet><title>Quiz Page</title></Helmet>
         <div className="questions">
             <div className="lifeline-container">
-            <FontAwesomeIcon className="cube" icon={faCube} />
+            <p><FontAwesomeIcon icon={faDivide} />2</p>
+        
+            <p><FontAwesomeIcon  icon={faLightbulb} /></p>
+            </div>
+            <div>
+                <p><span><FontAwesomeIcon icon={faClock}></FontAwesomeIcon></span> 2:15</p>
+                <p><span>1 of 15</span></p>
             </div>
             <h3>Google was founded in what year?</h3>
             <div className="options-container">
