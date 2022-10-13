@@ -22,17 +22,18 @@ class Play extends React.Component {
        return (
    <Fragment>
     <Helmet><title>Quiz Page</title></Helmet>
-        <div className="questions">
+        <div className="questions" data-testid="questions">
             <div className="lifeline-container">
-            <p><FontAwesomeIcon icon={faDivide} />2</p>
+            <p><FontAwesomeIcon icon={faDivide} />
+            <span className="lifeline">2</span></p>
         
             <p><FontAwesomeIcon  icon={faLightbulb} /></p>
             </div>
             <div>
-                <p><span><FontAwesomeIcon icon={faClock}></FontAwesomeIcon></span> 2:15</p>
-                <p><span>1 of 15</span></p>
+                <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> 2:15</span></p>
+                <p><span className="left">1 of 15</span></p>
             </div>
-            <h3>Google was founded in what year?</h3>
+            <h5>Google was founded in what year?</h5>
             <div className="options-container">
                 <p className = "option">1997</p>
                 <p className = "option">1998</p>
