@@ -90,3 +90,16 @@ h5 {
 .button-container button:last-child:hover {
     background-color: darken($red, 10%);
 }
+
+.toast-invalid {
+    background-color: darken($red, 10%) !important;
+    border-radius: 5px !important;
+    color: $off-white !important;
+}
+
+.toast-valid {
+    background-color: darken($green, 10%) !important;
+    border-radius: 5px !important;
+    color: $off-white !important;
+}
+

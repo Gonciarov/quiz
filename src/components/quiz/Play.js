@@ -66,21 +66,36 @@ class Play extends React.Component {
   }
 
   correctAnswer = () => {
-    alert('Correct answer!')
+    M.toast({
+        html: 'Correct answer!',
+        classes: 'toast-valid',
+        displayLength: 1500
+    });
     this.setState(prevState => ({
-        score: prevState.score +1,
+        score: prevState.score + 1,
         correctAnswers: prevState.correctAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
-    }))
+    }), () => {
+        this.displayQuestions(
+            this.state.questions, 
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion)
+    })
   }
 
   wrongAnswer = () => {
-    alert('Wrong answer!')
+    M.toast({
+        html: 'Wrong answer!',
+        classes: 'toast-invalid',
+        displayLength: 1500
+    });
+
     this.setState(prevState => ({
         wrongAnswers: prevState.wrongAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions
+        numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }))
   }
 
