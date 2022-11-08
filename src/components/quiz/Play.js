@@ -74,7 +74,7 @@ class Play extends React.Component {
     this.setState(prevState => ({
         score: prevState.score + 1,
         correctAnswers: prevState.correctAnswers + 1,
-        currentQuestionIndex: prevState.currentQuestionIndex,
+        currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }), () => {
         this.displayQuestions(
@@ -96,7 +96,13 @@ class Play extends React.Component {
         wrongAnswers: prevState.wrongAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
-    }))
+    }), () => {
+        this.displayQuestions(
+            this.state.questions, 
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion)
+    })
   }
 
     addCount = () => {
