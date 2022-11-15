@@ -26,10 +26,6 @@ const Home = () => (
                   
                 </div>
                 <h1>Quiz app</h1>
-<<<<<<< HEAD:client/src/components/Home.js
-=======
-            
->>>>>>> c6cfbad68950b49605444ea463148fb26322c862:src/components/Home.js
                
                 </section>
             
