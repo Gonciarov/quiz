@@ -27,6 +27,7 @@ class Play extends React.Component {
             hints: 5,
             fiftyFifty: 2,
             usedFiftyFifty: false,
+            previousRandomNumbers: [],
             time: {}
         }
     };
@@ -64,7 +65,10 @@ class Play extends React.Component {
                     currentQuestion,
                     nextQuestion,
                     previousQuestion,
-                    answer
+                    answer,
+                    previousRandomNumbers: []
+                }, () => {
+                    this.showOptions()
                 })
                 
             }
@@ -176,24 +180,56 @@ handleButtonClick = (e) => {
     })
   }
 
-    addCount = () => {
-        this.setState({
-            counter: 5
-        })
+  showOptions = () => {
+      const options = Array.from(document.querySelectorAll('.option'));
+      options.forEach((option => {
+          option.style.display = "block"
+      }))
+  }
+  
+handleHints = () => {
+    if (this.state.hints > 0){
+    const options = Array.from(document.querySelectorAll('.option'));
+    let indexOfAnswer;
+    options.forEach((option, index) => {
+        if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+            indexOfAnswer = index;
+        }
+    })
+    while (true) {
+        const randomNumber = Math.round(Math.random() * 3);
+        if (randomNumber !== indexOfAnswer && !this.state.previousRandomNumbers.includes(randomNumber)) {
+            options.forEach((option, index) => {
+                if (index === randomNumber) {
+                    option.style.display = 'none';
+                    this.setState((prevState) => ({
+                        hints: prevState.hints - 1,
+                        previousRandomNumbers: prevState.previousRandomNumbers.concat(randomNumber)
+                    }));
+                }
+               
+            });
+            break;
+        }
+        if (this.state.previousRandomNumbers.length >=3) break;
     }
+}
+}
+
 
    render() {
        
-       const { currentQuestion } = this.state;
+       const { currentQuestion, hints } = this.state;
        return (
         <Fragment>
             <Helmet><title>Quiz Page</title></Helmet>
                 <div className="questions" data-testid="questions">
                     <div className="lifeline-container">
-                    <p><FontAwesomeIcon icon={faDivide} />
-                    <span className="lifeline">2</span></p>
+                    <p onClick={this.handleHints} className="lifeline-area"><FontAwesomeIcon icon={faDivide} />
+                        2
+                    </p>
                 
-                    <p><FontAwesomeIcon  icon={faLightbulb} /></p>
+       <p className="lifeline-area" onClick={this.handleHints}><FontAwesomeIcon  icon={faLightbulb} /><span className="lifeline">{hints}</span></p>
                     </div>
                     <div>
                         <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> 2:15</span></p>

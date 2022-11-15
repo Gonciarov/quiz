@@ -13,6 +13,18 @@
         position: relative;
         top: -3px;
     }
+
+    .lifeline-area {
+        color: $green;
+        cursor: pointer;
+    }
+
+    .lifeline-area:hover {
+        color: darken($orange, 10%);
+        background: none;
+        cursor: pointer;
+    }
+
 }
 
 h5 {
