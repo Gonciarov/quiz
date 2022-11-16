@@ -53,7 +53,6 @@ class Play extends React.Component {
         currentQuestion, 
         nextQuestion, 
         previousQuestion) => {
-            console.log(questions);
             let {currentQuestionIndex} = this.state;
             if (!isEmpty(this.state.questions)) {
                 
@@ -66,11 +65,12 @@ class Play extends React.Component {
                     nextQuestion,
                     previousQuestion,
                     answer,
+                    usedFiftyFifty: false,
                     previousRandomNumbers: []
                 }, () => {
-                    this.showOptions()
+                    this.showOptionsAndFiftyFifty()
+                    
                 })
-                
             }
         };
 
@@ -131,8 +131,6 @@ handleButtonClick = (e) => {
 }
 
   handleOptionClick = (e) => {
-      console.log(e.target.innerHTML)
-      console.log(this.state)
    if(e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
        this.correctAnswer()
    } else {
@@ -180,16 +178,24 @@ handleButtonClick = (e) => {
     })
   }
 
-  showOptions = () => {
+  showOptionsAndFiftyFifty = () => {
       const options = Array.from(document.querySelectorAll('.option'));
       options.forEach((option => {
           option.style.display = "block"
       }))
+      this.showFiftyFifty();
   }
+
+  showFiftyFifty = () => {
+    document.getElementById('lifeline-area').style.display = "block";
+    document.getElementById('lifeline-hints').style.display = "block";
+    document.getElementById('replace').style.display = "none";
+}
   
 handleHints = () => {
+    document.getElementById('lifeline-area').style.display = "none";
     if (this.state.hints > 0){
-    const options = Array.from(document.querySelectorAll('.option'));
+    const options = Array.from(document.querySelectorAll('.option'))
     let indexOfAnswer;
     options.forEach((option, index) => {
         if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
@@ -197,7 +203,7 @@ handleHints = () => {
         }
     })
     while (true) {
-        const randomNumber = Math.round(Math.random() * 3);
+        const randomNumber = Math.round(Math.random() * options.length);
         if (randomNumber !== indexOfAnswer && !this.state.previousRandomNumbers.includes(randomNumber)) {
             options.forEach((option, index) => {
                 if (index === randomNumber) {
@@ -214,6 +220,35 @@ handleHints = () => {
         if (this.state.previousRandomNumbers.length >=3) break;
     }
 }
+console.log(this.state.previousRandomNumbers)
+}
+
+
+
+handleFiftyFifty = () => {
+    
+    document.getElementById('lifeline-hints').style.display = "none";
+    document.getElementById('replace').style.display = "block";
+    if (!this.state.usedFiftyFifty) {
+        const options = Array.from(document.querySelectorAll('.option'))
+        let indexOfAnswer;
+        let badIndexes = [];
+        options.forEach((option, index)=> {
+            if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+                indexOfAnswer = index;
+            } else {
+                badIndexes.push(index)
+            };
+        });
+        badIndexes = badIndexes.sort((a,b) => 0.5 -Math.random())
+        console.log(badIndexes)
+    document.getElementById('lifeline-area').style.display = "none";
+    for (let i = 0; i<badIndexes.length -1; i++) {
+        options[badIndexes[i]].style.display = "none"
+        }
+    
+    
+    }
 }
 
 
@@ -225,12 +260,13 @@ handleHints = () => {
             <Helmet><title>Quiz Page</title></Helmet>
                 <div className="questions" data-testid="questions">
                     <div className="lifeline-container">
-                    <p onClick={this.handleHints} className="lifeline-area"><FontAwesomeIcon icon={faDivide} />
+                    <div><p id="lifeline-area" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
                         2
-                    </p>
+                    </p><p id="replace">.</p></div>
+                    <p></p>
                 
-       <p className="lifeline-area" onClick={this.handleHints}><FontAwesomeIcon  icon={faLightbulb} /><span className="lifeline">{hints}</span></p>
-                    </div>
+       <div><p id="lifeline-hints" className="lifeline-hints" onClick={this.handleHints}><FontAwesomeIcon  icon={faLightbulb} /><span className="lifeline">{hints}</span></p>
+                    </div></div>
                     <div>
                         <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> 2:15</span></p>
                         <p><span className="left">1 of 15</span></p>

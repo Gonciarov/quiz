@@ -6,23 +6,42 @@
     padding: $s $md;
 
     .lifeline-container {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 10% 80% 10%;
     }
+    
     .lifeline {
         position: relative;
         top: -3px;
     }
 
-    .lifeline-area {
+    .lifeline-hints {
+        color: $green;
+        cursor: pointer;
+        text-align: right;
+    }
+
+    .lifeline-hints:hover {
+        color: darken($orange, 10%);
+        background: none;
+        cursor: pointer;
+    }
+
+    .lifeline-fifty-fifty {
         color: $green;
         cursor: pointer;
     }
 
-    .lifeline-area:hover {
+    .lifeline-fifty-fifty:hover {
         color: darken($orange, 10%);
         background: none;
         cursor: pointer;
+    }
+
+    #replace {
+        display: none;
+        color: transparent;
+        cursor: auto;
     }
 
 }
