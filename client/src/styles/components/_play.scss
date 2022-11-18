@@ -1,4 +1,4 @@
-.questions {
+.questions, .results {
     background-color: $off-white;
     border-left: 5px solid $blue;
     width: 80%;
@@ -133,4 +133,17 @@ h5 {
     border-radius: 5px !important;
     color: $off-white !important;
 }
+
+.disable {
+    pointer-events: none;
+    background-color: #ccc !important;
+    box-shadow: none !important;
+    opacity: 0.9 !important;
+}
+
+.results {
+    display: none;
+}
+
+
 

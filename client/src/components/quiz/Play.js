@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDivide, faLightbulb, faClock } from '@fortawesome/free-solid-svg-icons';
 import M from 'materialize-css';
 import isEmpty from '../../utils/isEmpty';
-
-
+import withRouter from '../../utils/withRouter';
+import classnames from 'classnames';
 
 
 
@@ -27,9 +27,12 @@ class Play extends React.Component {
             hints: 5,
             fiftyFifty: 2,
             usedFiftyFifty: false,
+            nextButtonDisabled: false,
+            previousButtonDisabled: true,
             previousRandomNumbers: [],
-            time: {}
+            time: {minutes: 0, seconds: 0}
         }
+        this.interval = null
     };
 
     
@@ -43,8 +46,14 @@ class Play extends React.Component {
                 this.state.currentQuestion,
                 this.state.nextQuestion,
                 this.state.previousQuestion)
-            })
-        )}
+            }) 
+        ).then(this.startTimer())
+       
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
     
     
     
@@ -53,29 +62,32 @@ class Play extends React.Component {
         currentQuestion, 
         nextQuestion, 
         previousQuestion) => {
+            
             let {currentQuestionIndex} = this.state;
             if (!isEmpty(this.state.questions)) {
-                
+                let numberOfQuestions = questions.length;
                 currentQuestion = questions[currentQuestionIndex];
                 nextQuestion = questions[currentQuestionIndex + 1];
                 previousQuestion = questions[currentQuestionIndex - 1];
                 const answer = currentQuestion.answer;
                 this.setState({
                     currentQuestion,
-                    nextQuestion,
                     previousQuestion,
+                    numberOfQuestions,
                     answer,
+                    numberOfQuestions,
                     usedFiftyFifty: false,
                     previousRandomNumbers: []
                 }, () => {
-                    this.showOptionsAndFiftyFifty()
-                    
+                    this.showOptionsAndFiftyFifty();
+                    this.handleDisableButton()
                 })
             }
         };
 
 handleNextClick = () => {
     if (this.state.nextQuestion !== undefined) {
+        if(this.state.currentQuestionIndex !== this.state.questions.length - 1) {
         this.setState(prevState => ({
             currentQuestionIndex: prevState.currentQuestionIndex + 1,
         }), () => {
@@ -86,6 +98,18 @@ handleNextClick = () => {
                 this.state.previousQuestion
             );
         })
+    } else {
+        this.setState(prevState => ({
+            currentQuestionIndex: prevState.currentQuestionIndex,
+        }), () => {
+            this.displayQuestions(
+                this.state.state, 
+                this.state.currentQuestion, 
+                this.state.nextQuestion, 
+                this.state.previousQuestion
+            );
+        })
+    }
     }
 }
 
@@ -106,7 +130,7 @@ handlePreviousClick = () => {
 
 handleQuitClick = () => {
     if(window.confirm('Are you sure?')) {
-        window.location.replace('/')
+        this.props.navigate('/')
     }
 }
 
@@ -144,17 +168,23 @@ handleButtonClick = (e) => {
         classes: 'toast-valid',
         displayLength: 1500
     });
+    let add;
+    this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
     this.setState(prevState => ({
         score: prevState.score + 1,
         correctAnswers: prevState.correctAnswers + 1,
-        currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        currentQuestionIndex: prevState.currentQuestionIndex + add,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }), () => {
+        if (this.state.numberOfAnsweredQuestions === this.state.questions.length) {
+            this.endGame("That's it");
+        } else {
         this.displayQuestions(
             this.state.questions, 
             this.state.currentQuestion,
             this.state.nextQuestion,
             this.state.previousQuestion)
+        }
     })
   }
 
@@ -164,17 +194,22 @@ handleButtonClick = (e) => {
         classes: 'toast-invalid',
         displayLength: 1500
     });
-
+    let add;
+    this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
     this.setState(prevState => ({
         wrongAnswers: prevState.wrongAnswers + 1,
-        currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        currentQuestionIndex: prevState.currentQuestionIndex + add,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }), () => {
+        if (this.state.numberOfAnsweredQuestions === this.state.questions.length) {
+            this.endGame("That's it!");
+        } else {
         this.displayQuestions(
             this.state.questions, 
             this.state.currentQuestion,
             this.state.nextQuestion,
             this.state.previousQuestion)
+        }
     })
   }
 
@@ -220,7 +255,7 @@ handleHints = () => {
         if (this.state.previousRandomNumbers.length >=3) break;
     }
 }
-console.log(this.state.previousRandomNumbers)
+
 }
 
 
@@ -241,7 +276,6 @@ handleFiftyFifty = () => {
             };
         });
         badIndexes = badIndexes.sort((a,b) => 0.5 -Math.random())
-        console.log(badIndexes)
     document.getElementById('lifeline-area').style.display = "none";
     for (let i = 0; i<badIndexes.length -1; i++) {
         options[badIndexes[i]].style.display = "none"
@@ -251,14 +285,92 @@ handleFiftyFifty = () => {
     }
 }
 
+startTimer = () => {
+    const countDownTime = Date.now() + 180000;
+    this.interval = setInterval(() => {
+        const now = new Date();
+        const distance = countDownTime - now;
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        if (distance < 0) {
+            clearInterval(this.interval);
+            this.setState({
+                time: {
+                    minutes: 0,
+                    seconds: 0
+                }
+            }, () => {
+                this.endGame("Time out!")
+            })
+        } else {
+            this.setState({
+                time: {
+                    minutes,
+                    seconds
+                }
+            })
+        }
+    }, 1000);
+}
+
+handleDisableButton = () => {
+    if (this.state.previousQuestion === undefined || this.state.currentQuestionIndex === 0) {    
+        this.setState(
+            {
+                previousButtonDisabled: true
+            }
+        )
+    } else {
+        this.setState(
+            {
+                previousButtonDisabled: false
+            }
+        )
+    }
+    if (this.state.nextQuestion === undefined || this.state.currentQuestionIndex + 1 === this.state.numberOfQuestions) {    
+        this.setState(
+            {
+                nextButtonDisabled: true
+            }
+        )
+    } else {
+        this.setState(
+            {
+                nextButtonDisabled: false
+            }
+        )
+    }
+}
+
+displayResults = () => {
+    document.getElementById("questions").style.display = "none";
+    document.getElementById("results").style.display = "block";
+}
+
+endGame = (message) => {
+    const {state} = this;
+    const playerStats = {
+        score: state.score,
+        numberOfQuestions: state.numberOfQuestions,
+        numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
+        correctAnswers: state.correctAnswers,
+        wrongAnswers: state.wrongAnswers,
+        fiftyFiftyUsed: 2 - state.fiftyFifty,
+        hintsUsed: 5 - state.hints
+    }
+    setTimeout(() => {
+        this.displayResults();
+    }, 1000)  
+}
 
    render() {
        
-       const { currentQuestion, hints } = this.state;
+       const { currentQuestion, hints, time, numberOfQuestions, currentQuestionIndex } = this.state;
        return (
         <Fragment>
             <Helmet><title>Quiz Page</title></Helmet>
-                <div className="questions" data-testid="questions">
+            <div>
+                <div id="questions" className="questions" data-testid="questions">
                     <div className="lifeline-container">
                     <div><p id="lifeline-area" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
                         2
@@ -268,8 +380,8 @@ handleFiftyFifty = () => {
        <div><p id="lifeline-hints" className="lifeline-hints" onClick={this.handleHints}><FontAwesomeIcon  icon={faLightbulb} /><span className="lifeline">{hints}</span></p>
                     </div></div>
                     <div>
-                        <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> 2:15</span></p>
-                        <p><span className="left">1 of 15</span></p>
+                        <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> {time.minutes}:{time.seconds}</span></p>
+       <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
        <h5>{currentQuestion.question}</h5>
                     <div className="options-container">
@@ -280,9 +392,27 @@ handleFiftyFifty = () => {
                     </div>
                 
                 <div className="button-container">
-                    <button id="previous-button" onClick={this.handleButtonClick}>Previous</button>
-                    <button id="next-button" onClick={this.handleButtonClick}>Next</button>
+                    <button 
+                        id="previous-button" 
+                        className={classnames('', {'disable':this.state.previousButtonDisabled })}
+                        onClick={this.handleButtonClick}>
+                        Previous
+                        </button>
+                    <button 
+                        id="next-button" 
+                        className={classnames('', {'disable':this.state.nextButtonDisabled })}
+                        onClick={this.handleButtonClick}>
+                        Next
+                        </button>
                     <button id="quit-button" onClick={this.handleButtonClick}>Quit</button>
+                </div>
+                </div>
+                <div id="results" className="results">
+                    <h1>Your result: {Math.trunc(100 * this.state.correctAnswers / this.state.numberOfQuestions)}%</h1>
+                   
+        <p>Questions total: { this.state.numberOfQuestions}</p>
+        <p>Correct answers: {this.state.correctAnswers}</p>
+        <p>Wrong answers: {this.state.wrongAnswers}</p>
                 </div>
                 </div>
         </Fragment>
@@ -290,4 +420,4 @@ handleFiftyFifty = () => {
    };
 };
 
-export default Play;
+export default withRouter(Play);

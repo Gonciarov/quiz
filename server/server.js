@@ -10,11 +10,11 @@ app.use(cors({
 
 app.get("/test", cors(), (req, res) => {
     res.json(questions)
+    
 })
 
 app.post("/test", (req, res) => {
     let name = JSON.parse(req.body.name)
-    console.log(name)
 })
 
 app.listen(5000, () => {
