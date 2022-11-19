@@ -6,6 +6,7 @@ import M from 'materialize-css';
 import isEmpty from '../../utils/isEmpty';
 import withRouter from '../../utils/withRouter';
 import classnames from 'classnames';
+import Results from './Results'
 
 
 
@@ -30,7 +31,8 @@ class Play extends React.Component {
             nextButtonDisabled: false,
             previousButtonDisabled: true,
             previousRandomNumbers: [],
-            time: {minutes: 0, seconds: 0}
+            time: {minutes: 0, seconds: 0},
+            completed: false
         }
         this.interval = null
     };
@@ -51,9 +53,9 @@ class Play extends React.Component {
        
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(){
         clearInterval(this.interval);
-    }
+      }
     
     
     
@@ -75,7 +77,6 @@ class Play extends React.Component {
                     previousQuestion,
                     numberOfQuestions,
                     answer,
-                    numberOfQuestions,
                     usedFiftyFifty: false,
                     previousRandomNumbers: []
                 }, () => {
@@ -148,7 +149,7 @@ handleButtonClick = (e) => {
             this.handleQuitClick();
             break;
             default:
-                break;
+        break;
 
     }
     
@@ -177,7 +178,15 @@ handleButtonClick = (e) => {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }), () => {
         if (this.state.numberOfAnsweredQuestions === this.state.questions.length) {
-            this.endGame("That's it");
+            clearInterval(this.interval);
+            this.setState({
+                time: {
+                    minutes: 0,
+                    seconds: 0
+                }
+            }, () => {
+                this.endGame("Time out!")
+            })
         } else {
         this.displayQuestions(
             this.state.questions, 
@@ -202,7 +211,15 @@ handleButtonClick = (e) => {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1
     }), () => {
         if (this.state.numberOfAnsweredQuestions === this.state.questions.length) {
-            this.endGame("That's it!");
+            clearInterval(this.interval);
+            this.setState({
+                time: {
+                    minutes: 0,
+                    seconds: 0
+                }
+            }, () => {
+                this.endGame("Time out!")
+            })
         } else {
         this.displayQuestions(
             this.state.questions, 
@@ -266,14 +283,12 @@ handleFiftyFifty = () => {
     document.getElementById('replace').style.display = "block";
     if (!this.state.usedFiftyFifty) {
         const options = Array.from(document.querySelectorAll('.option'))
-        let indexOfAnswer;
+       
         let badIndexes = [];
         options.forEach((option, index)=> {
-            if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
-                indexOfAnswer = index;
-            } else {
+            if (option.innerHTML.toLowerCase() !== this.state.answer.toLowerCase()) {
                 badIndexes.push(index)
-            };
+            }
         });
         badIndexes = badIndexes.sort((a,b) => 0.5 -Math.random())
     document.getElementById('lifeline-area').style.display = "none";
@@ -286,13 +301,13 @@ handleFiftyFifty = () => {
 }
 
 startTimer = () => {
-    const countDownTime = Date.now() + 180000;
+    const countDownTime = Date.now() + 182000;
     this.interval = setInterval(() => {
         const now = new Date();
         const distance = countDownTime - now;
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        if (distance < 0) {
+        if (distance < 0 || this.completed === true) {
             clearInterval(this.interval);
             this.setState({
                 time: {
@@ -348,19 +363,10 @@ displayResults = () => {
 }
 
 endGame = (message) => {
-    const {state} = this;
-    const playerStats = {
-        score: state.score,
-        numberOfQuestions: state.numberOfQuestions,
-        numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
-        correctAnswers: state.correctAnswers,
-        wrongAnswers: state.wrongAnswers,
-        fiftyFiftyUsed: 2 - state.fiftyFifty,
-        hintsUsed: 5 - state.hints
-    }
+    this.setState({completed: true})
     setTimeout(() => {
         this.displayResults();
-    }, 1000)  
+    }, 1000)
 }
 
    render() {
@@ -380,7 +386,7 @@ endGame = (message) => {
        <div><p id="lifeline-hints" className="lifeline-hints" onClick={this.handleHints}><FontAwesomeIcon  icon={faLightbulb} /><span className="lifeline">{hints}</span></p>
                     </div></div>
                     <div>
-                        <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon> {time.minutes}:{time.seconds}</span></p>
+                        <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon>{time.minutes}:{time.seconds}</span></p>
        <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
        <h5>{currentQuestion.question}</h5>
@@ -407,13 +413,14 @@ endGame = (message) => {
                     <button id="quit-button" onClick={this.handleButtonClick}>Quit</button>
                 </div>
                 </div>
-                <div id="results" className="results">
-                    <h1>Your result: {Math.trunc(100 * this.state.correctAnswers / this.state.numberOfQuestions)}%</h1>
-                   
-        <p>Questions total: { this.state.numberOfQuestions}</p>
-        <p>Correct answers: {this.state.correctAnswers}</p>
-        <p>Wrong answers: {this.state.wrongAnswers}</p>
-                </div>
+                <Results 
+                    completed={this.state.completed}
+                    seconds = {time.seconds}
+                    score={this.state.score}
+                    numberOfQuestions={this.state.numberOfQuestions}
+                    correctAnswers={this.state.correctAnswers}
+                    wrongAnswers={this.state.wrongAnswers}
+                />
                 </div>
         </Fragment>
        );
