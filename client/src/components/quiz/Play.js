@@ -22,6 +22,7 @@ class Play extends React.Component {
             numberOfQuestions: 0,
             numberOfAnsweredQuestions: 0,
             currentQuestionIndex: 0,
+            currentOptions: [],
             score: 0,
             correctAnswers: 0,
             wrongAnswers: 0,
@@ -32,7 +33,7 @@ class Play extends React.Component {
             previousButtonDisabled: true,
             previousRandomNumbers: [],
             time: {minutes: 0, seconds: 0},
-            completed: false
+            question5:  {question: "What is the capital of Ireland?", options: ["Vilnius", "Riga", "Tallinn"]}
         }
         this.interval = null
     };
@@ -40,16 +41,18 @@ class Play extends React.Component {
     
 
     componentDidMount () {
+        const myList = document.querySelector("ul");
+       
         fetch(`http://localhost:5000/test`)
         .then((response) => response.json())
-        .then((questions) => this.setState(({questions: questions}), () => {
+        .then((data) => this.setState(({questions: data}), () => {
             this.displayQuestions(
                 this.state.questions, 
                 this.state.currentQuestion,
                 this.state.nextQuestion,
                 this.state.previousQuestion)
-            }) 
-        ).then(this.startTimer())
+            })) 
+        .then(this.startTimer())
        
     }
 
@@ -64,7 +67,6 @@ class Play extends React.Component {
         currentQuestion, 
         nextQuestion, 
         previousQuestion) => {
-            
             let {currentQuestionIndex} = this.state;
             if (!isEmpty(this.state.questions)) {
                 let numberOfQuestions = questions.length;
@@ -72,10 +74,12 @@ class Play extends React.Component {
                 nextQuestion = questions[currentQuestionIndex + 1];
                 previousQuestion = questions[currentQuestionIndex - 1];
                 const answer = currentQuestion.answer;
+                let currentOptions = this.shuffleArray(currentQuestion.options);
                 this.setState({
                     currentQuestion,
                     previousQuestion,
                     numberOfQuestions,
+                    currentOptions,
                     answer,
                     usedFiftyFifty: false,
                     previousRandomNumbers: []
@@ -275,14 +279,23 @@ handleHints = () => {
 
 }
 
+ shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return(array)
+}
+
 
 
 handleFiftyFifty = () => {
-    
+  
     document.getElementById('lifeline-hints').style.display = "none";
     document.getElementById('replace').style.display = "block";
     if (!this.state.usedFiftyFifty) {
-        const options = Array.from(document.querySelectorAll('.option'))
+        let options = Array.from(document.querySelectorAll('.option'))
+        options = this.shuffleArray(options)
        
         let badIndexes = [];
         options.forEach((option, index)=> {
@@ -290,13 +303,11 @@ handleFiftyFifty = () => {
                 badIndexes.push(index)
             }
         });
-        badIndexes = badIndexes.sort((a,b) => 0.5 -Math.random())
+        badIndexes = this.shuffleArray(badIndexes);
     document.getElementById('lifeline-area').style.display = "none";
     for (let i = 0; i<badIndexes.length -1; i++) {
-        options[badIndexes[i]].style.display = "none"
+        options[badIndexes[i]].style.display = "none";
         }
-    
-    
     }
 }
 
@@ -307,7 +318,7 @@ startTimer = () => {
         const distance = countDownTime - now;
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        if (distance < 0 || this.completed === true) {
+        if (distance < 0) {
             clearInterval(this.interval);
             this.setState({
                 time: {
@@ -363,15 +374,13 @@ displayResults = () => {
 }
 
 endGame = (message) => {
-    this.setState({completed: true})
     setTimeout(() => {
         this.displayResults();
-    }, 1000)
+    }, 500)
 }
 
    render() {
-       
-       const { currentQuestion, hints, time, numberOfQuestions, currentQuestionIndex } = this.state;
+       const { currentOptions, currentQuestion, hints, time, numberOfQuestions, currentQuestionIndex } = this.state;
        return (
         <Fragment>
             <Helmet><title>Quiz Page</title></Helmet>
@@ -390,11 +399,13 @@ endGame = (message) => {
        <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
        <h5>{currentQuestion.question}</h5>
+             
                     <div className="options-container">
-                        <p onClick={this.handleOptionClick} className = "option">{currentQuestion.option1}</p>
-                        <p onClick={this.handleOptionClick} className = "option">{currentQuestion.option2}</p>
-                        <p onClick={this.handleOptionClick} className = "option">{currentQuestion.option3}</p>
-                        <p onClick={this.handleOptionClick} className = "option">{currentQuestion.option4}</p>
+                    {currentOptions.map((option, index) => 
+                         <p onClick={this.handleOptionClick} key={index} className = "option">{option}</p>
+                        )}
+                        </div>
+                    <div>
                     </div>
                 
                 <div className="button-container">
@@ -414,8 +425,6 @@ endGame = (message) => {
                 </div>
                 </div>
                 <Results 
-                    completed={this.state.completed}
-                    seconds = {time.seconds}
                     score={this.state.score}
                     numberOfQuestions={this.state.numberOfQuestions}
                     correctAnswers={this.state.correctAnswers}

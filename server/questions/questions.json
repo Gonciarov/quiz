@@ -1,32 +1,22 @@
 [
     {"question": "What is the capital of Ireland?",
-    "option1": "Dublin",
-    "option2": "London",
-    "option3": "Belfast",
-    "option4": "Cardiff",
-    "answer": "Dublin"
+    "answer": "Dublin",
+    "options":  ["Dublin", "London", "Belfast","Cardiff", "Edinburgh"]
+   
     },
 
     {"question": "Who was the inventor of x-ray?",
-        "option1": "Ernest Rutherford",
-        "option2": "Wilhelm Conrad Rontgen",
-        "option3": "Dmitriy Mendeleyev",
-        "option4": "Mikolaj Kopernik",
+        "options": ["Ernest Rutherford","Wilhelm Conrad Rontgen","Dmitriy Mendeleyev","Mikolaj Kopernik"],
         "answer": "Wilhelm Conrad Rontgen"
     },
     
     {"question": "Who wrote Romeo and Juliette?",
-        "option1": "Dante Alighieri",
-        "option2": "Taras Shevchenko",
-        "option3": "William Shakespeare",
-        "option4": "Tennessee Williams",
+        "options": ["Dante Alighieri","Taras Shevchenko",  "William Shakespeare", "Tennessee Williams"],
         "answer": "William Shakespeare"
     },
     
     {"question": "When did the first human space flight happen?",
-        "option1": "1945",
-        "option2": "1956",
-        "option3": "1961",
-        "option4": "1970",
-        "answer": "1961"}
+        "options": ["1945","1956", "1961","1970"],
+        "answer": "1961"
+    }
 ]

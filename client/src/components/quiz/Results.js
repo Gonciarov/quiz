@@ -1,7 +1,6 @@
 import React from 'react';
 
-function Results({completed, seconds, score, numberOfQuestions, correctAnswers, wrongAnswers}) {
-       console.log(completed)
+function Results({score, numberOfQuestions, correctAnswers, wrongAnswers}) {
   return (
        <div id="results" className="results">
       
