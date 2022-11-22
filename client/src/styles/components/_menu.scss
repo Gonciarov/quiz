@@ -15,9 +15,20 @@
     background-color: $green;
     color: $white;
     border-radius: 5px;
-    margin-top: $lg;
-    margin-bottom: $lg;
-    margin-left: $lg;
-    margin-right: $lg;
+    margin: $lg;
     padding: $s $lg;
 }
+
+@media screen and (max-width: 400px) {
+    .menu {
+        width: 98%;
+        border: 0;
+        margin: 1%;
+    }
+
+    .menu-item {
+        padding: $xs $s;
+        margin: $md;
+    }
+
+  }

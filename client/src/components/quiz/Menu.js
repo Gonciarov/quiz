@@ -1,6 +1,6 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+
 
 class Menu extends React.Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class Menu extends React.Component {
         fetch(`http://localhost:5000/titles`)
         .then((response) => response.json())
         .then((data) => this.setState(({quizTitles: data})))
-            
     }
 
     render() {

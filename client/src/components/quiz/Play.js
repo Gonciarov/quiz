@@ -80,12 +80,19 @@ class Play extends React.Component {
                     usedFiftyFifty: false,
                     previousRandomNumbers: []
                 }, () => {
-                    setTimeout(this.showQuestions, 1000);
-                    this.showOptionsAndFiftyFifty();
-                    this.handleDisableButton()
+                    if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
+                        setTimeout(this.showQuestions, 500);
+                        this.showOptionsAndFiftyFifty();
+                        this.handleDisableButton()
+                    } else {
+                        this.displayResults()
+                    }
+
                 })
             }
         };
+
+
 
 showQuestions = () => {
     document.getElementById("loading").style.display = "none";
@@ -170,10 +177,11 @@ handleButtonClick = (e) => {
   }
 
   correctAnswer = () => {
+    if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
     M.toast({
         html: 'Correct answer!',
         classes: 'toast-valid',
-        displayLength: 1500
+        displayLength: 500
     });
     let add;
     this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
@@ -191,7 +199,7 @@ handleButtonClick = (e) => {
                     seconds: 0
                 }
             }, () => {
-                this.endGame("Time out!")
+                this.displayResults()
             })
         } else {
         this.displayQuestions(
@@ -201,13 +209,15 @@ handleButtonClick = (e) => {
             this.state.previousQuestion)
         }
     })
-  }
+  } else {
+    this.displayResults();
+  }}
 
   wrongAnswer = () => {
     M.toast({
         html: 'Wrong answer!',
         classes: 'toast-invalid',
-        displayLength: 1500
+        displayLength: 500
     });
     let add;
     this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
@@ -224,7 +234,7 @@ handleButtonClick = (e) => {
                     seconds: 0
                 }
             }, () => {
-                this.endGame("Time out!")
+                this.displayResults("Time out!")
             })
         } else {
         this.displayQuestions(
@@ -328,7 +338,7 @@ startTimer = () => {
                     seconds: 0
                 }
             }, () => {
-                this.endGame("Time out!")
+                this.displayResults("Time out!")
             })
         } else {
             this.setState({
@@ -371,14 +381,8 @@ handleDisableButton = () => {
 }
 
 displayResults = () => {
-    document.getElementById("questions").style.display = "none";
-    document.getElementById("results").style.display = "block";
-}
-
-endGame = (message) => {
-    setTimeout(() => {
-        this.displayResults();
-    }, 500)
+    document.getElementById("questions").innerHTML =  document.getElementById("results").innerHTML;
+  
 }
 
    render() {
@@ -394,7 +398,7 @@ endGame = (message) => {
                 <div id="questions" className="questions" data-testid="questions">
                     <div className="lifeline-container">
                     <div><p id="lifeline-area" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
-                        2
+                        
                     </p><p id="replace">.</p></div>
                     <p></p>
                 
@@ -404,6 +408,7 @@ endGame = (message) => {
                         <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon>{time.minutes}:{time.seconds}</span></p>
        <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
+        <div id="question-with-answers">
        <h5 data-testid="question-element">{currentQuestion.question}</h5>
              
                     <div data-testid="options-container" className="options-container">
@@ -411,7 +416,7 @@ endGame = (message) => {
                          <p onClick={this.handleOptionClick} key={index} data-testid="option" className = "option">{option}</p>
                         )}
                         </div>
-                    <div>
+                   
                    
                     </div>
                 
