@@ -77,6 +77,32 @@ h5 {
     .option:hover {
         background-color: darken($blue, 20%);
     }
+    .correct {
+        background-color: $green;
+        display: none;
+    }
+
+    .correct:hover {
+        background-color: $green;
+    }
+
+    .incorrect {
+        background-color: $red;
+        display: none;
+    }
+    .incorrect:hover {
+        background-color: $red;
+    }
+
+    .other-option {
+        background-color: #ccc;
+        display: none;
+    }
+    .other-option:hover {
+        background-color: #ccc;
+    }
+
+  
 }
 
 .button-container {
@@ -179,5 +205,33 @@ h5 {
         font-size: 6px;
     }
 }
+
+#comment-container {
+    text-align: center;
+
+    #comment-correct, #comment-incorrect {
+        display: none;
+        text-align: center;
+    }
+
+    .continue-button {
+        background-color: $green;
+        box-shadow: $shadow;
+        transition: 0.2s linear all;
+    }
+    .continue-button:hover {
+        background-color: darken($green, 20%);
+    }
+
+    button {
+        border: none;
+        color: $off-white;
+        cursor: pointer;
+        padding: $xs $s;
+    }
+}
+
+
+
 
 

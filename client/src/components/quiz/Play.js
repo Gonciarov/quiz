@@ -29,6 +29,7 @@ class Play extends React.Component {
             hints: 5,
             fiftyFifty: 2,
             usedFiftyFifty: false,
+            optionsButtonDisabled: false,
             nextButtonDisabled: false,
             previousButtonDisabled: true,
             previousRandomNumbers: [],
@@ -57,6 +58,10 @@ class Play extends React.Component {
     componentWillUnmount(){
         clearInterval(this.interval);
       }
+
+    componentDidUpdate() {
+       
+    }
     
     displayQuestions = (
         questions = this.state.questions, 
@@ -78,7 +83,8 @@ class Play extends React.Component {
                     currentOptions,
                     answer,
                     usedFiftyFifty: false,
-                    previousRandomNumbers: []
+                    previousRandomNumbers: [],
+                    optionsButtonDisabled: false,
                 }, () => {
                     if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
                         setTimeout(this.showQuestions, 500);
@@ -168,21 +174,26 @@ handleButtonClick = (e) => {
     
 }
 
-  handleOptionClick = (e) => {
-   if(e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+  handleContinueClick = (e) => {
+   if(e.target.parentElement.id === "comment-correct") {
        this.correctAnswer()
    } else {
        this.wrongAnswer()
    }
+
+   let options = Array.from(document.querySelectorAll('.option'));
+   options.forEach((option) => {
+       option.classList.remove('correct');
+       option.classList.remove('incorrect');
+       option.classList.remove('other-option');
+   })
+   document.getElementById('comment-correct').style.display = 'none';
+   document.getElementById('comment-incorrect').style.display = 'none';
+   this.setState({optionsButtonDisabled: true})
   }
 
   correctAnswer = () => {
     if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
-    M.toast({
-        html: 'Correct answer!',
-        classes: 'toast-valid',
-        displayLength: 500
-    });
     let add;
     this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
     this.setState(prevState => ({
@@ -214,11 +225,6 @@ handleButtonClick = (e) => {
   }}
 
   wrongAnswer = () => {
-    M.toast({
-        html: 'Wrong answer!',
-        classes: 'toast-invalid',
-        displayLength: 500
-    });
     let add;
     this.state.currentQuestionIndex !== this.state.questions.length - 1 ? add = 1 : add = 0;
     this.setState(prevState => ({
@@ -385,6 +391,37 @@ displayResults = () => {
   
 }
 
+handleOptionClick = (e) => {
+    if (this.state.optionsButtonDisabled) {
+        return
+    } else {
+        this.setState({optionsButtonDisabled: true});
+        let options = Array.from(document.querySelectorAll('.option'));
+        if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
+            M.toast({
+                html: 'Correct answer!',
+                classes: 'toast-valid',
+                displayLength: 500
+            });
+            document.getElementById("comment-correct").style.display = "block";
+            e.target.classList.add("correct")
+        } else {
+            M.toast({
+                html: 'Wrong answer!',
+                classes: 'toast-invalid',
+                displayLength: 500
+            });
+            options.forEach((option) => {
+                if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+                option.classList.add("correct");
+                e.target.classList.add("incorrect");
+                document.getElementById("comment-incorrect").style.display = "block" 
+            } else if (option !== e.target){
+                option.classList.add("other-option");
+            }
+        })}
+    }}
+
    render() {
 
        const { currentOptions, currentQuestion, hints, time, numberOfQuestions, currentQuestionIndex } = this.state;
@@ -413,13 +450,24 @@ displayResults = () => {
              
                     <div data-testid="options-container" className="options-container">
                     {currentOptions.map((option, index) => 
-                         <p onClick={this.handleOptionClick} key={index} data-testid="option" className = "option">{option}</p>
+                         <p onClick={this.handleOptionClick} 
+                         key={index} 
+                         data-testid="option" 
+                         className="option"
+                         >{option}</p>
                         )}
                         </div>
-                   
-                   
                     </div>
-                
+                <div id="comment-container">
+                <div id="comment-correct">
+                    <p>{currentQuestion.commentForCorrect}</p>
+                    <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
+                    </div>
+                <div id="comment-incorrect">
+                    <p>{currentQuestion.commentForIncorrect}</p>
+                    <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
+                </div>
+                </div>
                 <div className="button-container">
                     <button 
                         id="previous-button" 
