@@ -4,6 +4,7 @@
     width: 80%;
     margin: $lg auto 0 auto;
     padding: $s $md;
+    display: none;
 
     .lifeline-container {
         display: grid;
@@ -141,9 +142,27 @@ h5 {
     opacity: 0.9 !important;
 }
 
-.results {
-    display: none;
+#loading {
+    text-align: center;
+    
 }
+
+.spin {
+    font-size: $lg;
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+  }
+  
+  @keyframes spin {
+      from {
+          transform:rotate(0deg);
+      }
+      to {
+          transform:rotate(360deg);
+      }
+  }
 
 
 

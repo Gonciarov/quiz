@@ -1,0 +1,23 @@
+.menu {
+    border: 1px solid darken($off-white, 10%);
+    border-radius: 5px;
+    margin-top: $lg;
+    margin-bottom: $lg;
+    margin-left: $lg;
+    margin-right: $lg;
+    padding: $lg;
+}
+
+.menu-item {
+    display: block;
+    border: 1px solid darken($off-white, 10%);
+    text-align: center;
+    background-color: $green;
+    color: $white;
+    border-radius: 5px;
+    margin-top: $lg;
+    margin-bottom: $lg;
+    margin-left: $lg;
+    margin-right: $lg;
+    padding: $s $lg;
+}

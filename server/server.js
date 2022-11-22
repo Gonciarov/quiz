@@ -13,6 +13,18 @@ app.get("/test", cors(), (req, res) => {
     
 })
 
+app.get("/titles", cors(), (req, res) => {
+    res.json([{1: "Хорошо ли вы помните роман Курта Воннегута \"Бойня №5\"?"}, 
+    {2: "Сбылись ли предсказания Айзека Азимова?"},
+    {3: "Что вы знаете о ГДР?"}
+])
+    
+})
+
+app.get('/1', cors(), (req, res) => {
+    res.json(questions)
+})
+
 app.post("/test", (req, res) => {
     let name = JSON.parse(req.body.name)
 })

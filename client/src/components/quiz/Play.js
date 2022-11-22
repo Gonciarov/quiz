@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {Helmet} from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDivide, faLightbulb, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faDivide, faLightbulb, faClock, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import M from 'materialize-css';
 import isEmpty from '../../utils/isEmpty';
 import withRouter from '../../utils/withRouter';
@@ -32,8 +32,7 @@ class Play extends React.Component {
             nextButtonDisabled: false,
             previousButtonDisabled: true,
             previousRandomNumbers: [],
-            time: {minutes: 0, seconds: 0},
-            question5:  {question: "What is the capital of Ireland?", options: ["Vilnius", "Riga", "Tallinn"]}
+            time: {},
         }
         this.interval = null
     };
@@ -41,9 +40,8 @@ class Play extends React.Component {
     
 
     componentDidMount () {
-        const myList = document.querySelector("ul");
-       
-        fetch(`http://localhost:5000/test`)
+        
+        fetch(`http://localhost:5000/${this.props.params.name}`)
         .then((response) => response.json())
         .then((data) => this.setState(({questions: data}), () => {
             this.displayQuestions(
@@ -59,8 +57,6 @@ class Play extends React.Component {
     componentWillUnmount(){
         clearInterval(this.interval);
       }
-    
-    
     
     displayQuestions = (
         questions = this.state.questions, 
@@ -84,11 +80,17 @@ class Play extends React.Component {
                     usedFiftyFifty: false,
                     previousRandomNumbers: []
                 }, () => {
+                    setTimeout(this.showQuestions, 1000);
                     this.showOptionsAndFiftyFifty();
                     this.handleDisableButton()
                 })
             }
         };
+
+showQuestions = () => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("questions").style.display = "block";
+}     
 
 handleNextClick = () => {
     if (this.state.nextQuestion !== undefined) {
@@ -304,7 +306,7 @@ handleFiftyFifty = () => {
             }
         });
         badIndexes = this.shuffleArray(badIndexes);
-    document.getElementById('lifeline-area').style.display = "none";
+        document.getElementById('lifeline-area').style.display = "none";
     for (let i = 0; i<badIndexes.length -1; i++) {
         options[badIndexes[i]].style.display = "none";
         }
@@ -380,11 +382,15 @@ endGame = (message) => {
 }
 
    render() {
+
        const { currentOptions, currentQuestion, hints, time, numberOfQuestions, currentQuestionIndex } = this.state;
        return (
         <Fragment>
             <Helmet><title>Quiz Page</title></Helmet>
+    
             <div>
+                <div id="loading"><h3>Loading...</h3>
+                <FontAwesomeIcon icon={faSpinner} className="spin" /></div>
                 <div id="questions" className="questions" data-testid="questions">
                     <div className="lifeline-container">
                     <div><p id="lifeline-area" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
@@ -398,14 +404,15 @@ endGame = (message) => {
                         <p><span className="right"><FontAwesomeIcon icon={faClock}></FontAwesomeIcon>{time.minutes}:{time.seconds}</span></p>
        <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
-       <h5>{currentQuestion.question}</h5>
+       <h5 data-testid="question-element">{currentQuestion.question}</h5>
              
-                    <div className="options-container">
+                    <div data-testid="options-container" className="options-container">
                     {currentOptions.map((option, index) => 
-                         <p onClick={this.handleOptionClick} key={index} className = "option">{option}</p>
+                         <p onClick={this.handleOptionClick} key={index} data-testid="option" className = "option">{option}</p>
                         )}
                         </div>
                     <div>
+                   
                     </div>
                 
                 <div className="button-container">
@@ -431,6 +438,7 @@ endGame = (message) => {
                     wrongAnswers={this.state.wrongAnswers}
                 />
                 </div>
+
         </Fragment>
        );
    };
