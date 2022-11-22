@@ -1,22 +1,29 @@
 [
     {"question": "What is the capital of Ireland?",
     "answer": "Dublin",
-    "options":  ["Dublin", "London", "Belfast","Cardiff", "Edinburgh"]
-   
+    "options":  ["Dublin", "London", "Belfast","Cardiff", "Edinburgh"],
+    "commentForCorrect": "Yep, Dublin it is",
+    "commentForIncorrect": "Nope, the correct answer is Dubin"
     },
 
     {"question": "Who was the inventor of x-ray?",
         "options": ["Ernest Rutherford","Wilhelm Conrad Rontgen","Dmitriy Mendeleyev","Mikolaj Kopernik"],
-        "answer": "Wilhelm Conrad Rontgen"
+        "answer": "Wilhelm Conrad Rontgen",
+        "commentForCorrect": "Yep, Rontgen it is",
+        "commentForIncorrect": "Nope, the correct answer is Rontgen"
     },
     
     {"question": "Who wrote Romeo and Juliette?",
         "options": ["Dante Alighieri","Taras Shevchenko",  "William Shakespeare", "Tennessee Williams"],
-        "answer": "William Shakespeare"
+        "answer": "William Shakespeare",
+        "commentForCorrect": "Yep, Shakespeare it is",
+        "commentForIncorrect": "Nope, the correct answer is Shakespeare"
     },
     
     {"question": "When did the first human space flight happen?",
         "options": ["1945","1956", "1961","1970"],
-        "answer": "1961"
+        "answer": "1961",
+        "commentForCorrect": "Yep, 1961 it is",
+        "commentForIncorrect": "Nope, the correct answer is 1961"
     }
 ]
