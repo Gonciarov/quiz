@@ -69,7 +69,6 @@ h5 {
         cursor: pointer;
         margin: $md auto;
         padding: $n;
-        transition: 0.3s linear all;
         text-align: center;
         width: 90%;
     }
@@ -80,26 +79,32 @@ h5 {
     .correct {
         background-color: $green;
         display: none;
+        cursor: default;
     }
 
     .correct:hover {
         background-color: $green;
+        cursor: default;
     }
 
     .incorrect {
         background-color: $red;
         display: none;
+        cursor: default;
     }
     .incorrect:hover {
         background-color: $red;
+        cursor: default;
     }
 
     .other-option {
         background-color: #ccc;
         display: none;
+        cursor: default;
     }
     .other-option:hover {
         background-color: #ccc;
+        cursor: default;
     }
 
   

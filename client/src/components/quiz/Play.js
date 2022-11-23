@@ -404,7 +404,12 @@ handleOptionClick = (e) => {
                 displayLength: 500
             });
             document.getElementById("comment-correct").style.display = "block";
-            e.target.classList.add("correct")
+            e.target.classList.add("correct");
+            options.forEach((option) => {
+                if (option.innerHTML.toLowerCase() !== this.state.answer.toLowerCase()) {
+                    option.classList.add("other-option")
+                }
+            })
         } else {
             M.toast({
                 html: 'Wrong answer!',
