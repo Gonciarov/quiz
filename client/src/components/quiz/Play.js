@@ -14,6 +14,7 @@ class Play extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            prisonNumber: this.props.params.prisonNumber,
             questions: [],
             currentQuestion: {},
             nextQuestion: {},
@@ -52,6 +53,7 @@ class Play extends React.Component {
                 this.state.previousQuestion)
             })) 
         .then(this.startTimer())
+
        
     }
 
@@ -87,8 +89,11 @@ class Play extends React.Component {
                 }, () => {
                     if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
                         setTimeout(this.showQuestions, 500);
-                        this.showOptionsAndFiftyFifty();
-                        this.handleDisableButton()
+                        this.showOptions();
+                        this.handleDisableButton();
+                        if (this.state.usedFiftyFifty === false) {
+                            this.showFiftyFifty();
+                        }
                     } else {
                         this.displayResults()
                     }
@@ -251,12 +256,11 @@ handleButtonClick = (e) => {
     })
   }
 
-  showOptionsAndFiftyFifty = () => {
+  showOptions = () => {
       const options = Array.from(document.querySelectorAll('.option'));
       options.forEach((option => {
           option.style.display = "block"
       }))
-      this.showFiftyFifty();
   }
 
   showFiftyFifty = () => {
@@ -308,7 +312,6 @@ handleHints = () => {
 
 handleFiftyFifty = () => {
   
-    // document.getElementById('lifeline-hints').style.display = "none";
     document.getElementById('replace').style.display = "block";
     if (!this.state.usedFiftyFifty) {
         let options = Array.from(document.querySelectorAll('.option'))
@@ -326,6 +329,7 @@ handleFiftyFifty = () => {
         options[badIndexes[i]].style.display = "none";
         }
     }
+    this.setState({usedFiftyFifty: true});
 }
 
 startTimer = () => {
