@@ -82,7 +82,6 @@ class Play extends React.Component {
                     numberOfQuestions,
                     currentOptions,
                     answer,
-                    usedFiftyFifty: false,
                     previousRandomNumbers: [],
                     optionsButtonDisabled: false,
                 }, () => {
@@ -309,7 +308,7 @@ handleHints = () => {
 
 handleFiftyFifty = () => {
   
-    document.getElementById('lifeline-hints').style.display = "none";
+    // document.getElementById('lifeline-hints').style.display = "none";
     document.getElementById('replace').style.display = "block";
     if (!this.state.usedFiftyFifty) {
         let options = Array.from(document.querySelectorAll('.option'))
