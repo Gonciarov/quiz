@@ -339,6 +339,7 @@ startTimer = () => {
 
 displayResults = () => {
     document.getElementById("questions").innerHTML =  document.getElementById("results").innerHTML;
+    document.getElementById("results-button-container").style.display = "inline-block"
   
 }
 

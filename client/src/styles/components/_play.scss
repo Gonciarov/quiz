@@ -166,6 +166,12 @@ h5 {
     color: $off-white !important;
 }
 
+.toast-saved {
+    background-color: $blue !important;
+    border-radius: 5px !important;
+    color: $off-white !important;
+}
+
 .disable {
     pointer-events: none;
     background-color: #ccc !important;
@@ -233,6 +239,27 @@ h5 {
         padding: $xs $s;
     }
 }
+
+
+    #results-button-container {
+        text-align: center;
+         padding: $md;
+         width: 80%;
+         margin-left: $md;
+     }
+     
+     #results-button-container button {
+        border: none;
+        color: $off-white;
+        cursor: pointer;
+        margin: $xs;
+        padding: $xs $s;
+        background-color: $red;
+        box-shadow: $shadow;
+        transition: 0.2s linear all;
+      
+     }
+
 
 
 
