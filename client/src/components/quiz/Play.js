@@ -31,8 +31,6 @@ class Play extends React.Component {
             fiftyFifty: 2,
             usedFiftyFifty: false,
             optionsButtonDisabled: false,
-            nextButtonDisabled: false,
-            previousButtonDisabled: true,
             previousRandomNumbers: [],
             time: {},
         }
@@ -90,7 +88,6 @@ class Play extends React.Component {
                     if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
                         setTimeout(this.showQuestions, 500);
                         this.showOptions();
-                        this.handleDisableButton();
                         if (this.state.usedFiftyFifty === false) {
                             this.showFiftyFifty();
                         }
@@ -156,26 +153,6 @@ handleQuitClick = () => {
     if(window.confirm('Are you sure?')) {
         this.props.navigate('/')
     }
-}
-
-handleButtonClick = (e) => {
-    switch(e.target.id) {
-        case "next-button":
-            this.handleNextClick();
-            break;
-           
-        case "previous-button":
-            this.handlePreviousClick();
-            break;
-
-        case "quit-button":
-            this.handleQuitClick();
-            break;
-            default:
-        break;
-
-    }
-    
 }
 
   handleContinueClick = (e) => {
@@ -360,35 +337,6 @@ startTimer = () => {
     }, 1000);
 }
 
-handleDisableButton = () => {
-    if (this.state.previousQuestion === undefined || this.state.currentQuestionIndex === 0) {    
-        this.setState(
-            {
-                previousButtonDisabled: true
-            }
-        )
-    } else {
-        this.setState(
-            {
-                previousButtonDisabled: false
-            }
-        )
-    }
-    if (this.state.nextQuestion === undefined || this.state.currentQuestionIndex + 1 === this.state.numberOfQuestions) {    
-        this.setState(
-            {
-                nextButtonDisabled: true
-            }
-        )
-    } else {
-        this.setState(
-            {
-                nextButtonDisabled: false
-            }
-        )
-    }
-}
-
 displayResults = () => {
     document.getElementById("questions").innerHTML =  document.getElementById("results").innerHTML;
   
@@ -466,32 +414,27 @@ handleOptionClick = (e) => {
                         )}
                         </div>
                     </div>
-                <div id="comment-container">
-                <div id="comment-correct">
-                    <p>{currentQuestion.commentForCorrect}</p>
-                    <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
+               
+              
+                 <div id="comment-container">
+                    
+                 
+                    <div id="comment-correct">
+                        <p>{currentQuestion.commentForCorrect}</p>
+                        <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
                     </div>
-                <div id="comment-incorrect">
-                    <p>{currentQuestion.commentForIncorrect}</p>
-                    <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
-                </div>
+                    <div id="comment-incorrect">
+                        <p>{currentQuestion.commentForIncorrect}</p>
+                        <button className="continue-button" onClick={this.handleContinueClick}>Continue</button>
+                    </div>
                 </div>
                 <div className="button-container">
-                    <button 
-                        id="previous-button" 
-                        className={classnames('', {'disable':this.state.previousButtonDisabled })}
-                        onClick={this.handleButtonClick}>
-                        Previous
-                        </button>
-                    <button 
-                        id="next-button" 
-                        className={classnames('', {'disable':this.state.nextButtonDisabled })}
-                        onClick={this.handleButtonClick}>
-                        Next
-                        </button>
-                    <button id="quit-button" onClick={this.handleButtonClick}>Quit</button>
+                <button id="quit-button" onClick={this.handleQuitClick}>Quit</button>
+                        </div>
+                
+                    
                 </div>
-                </div>
+                
                 <Results 
                     score={this.state.score}
                     numberOfQuestions={this.state.numberOfQuestions}
