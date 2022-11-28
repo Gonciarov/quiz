@@ -6,6 +6,7 @@ const questions = require('./questions/questions')
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
+app.use(bodyParser.json());
 
 
 app.get("/test", cors(), (req, res) => {
@@ -23,6 +24,10 @@ app.get("/titles", cors(), (req, res) => {
 
 app.get('/1', cors(), (req, res) => {
     res.json(questions)
+})
+
+app.post("/save-result", (req, res) => {
+    console.log(req.body);
 })
 
 app.post("/test", (req, res) => {
