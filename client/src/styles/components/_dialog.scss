@@ -1,0 +1,47 @@
+@import './settings';
+
+.dialog {
+    width: 500px;
+    max-width: 80%;
+    margin: 0 auto;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 999;
+    background-color:darken($off-white, 10%);
+    padding: 10px 20px 40px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column
+}
+
+.dialog-close-button {
+    margin-bottom: 15px;
+    padding: 3px 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    align-self: flex-end
+}
+
+#input-container {
+    text-align: center;
+}
+
+#confirm-save-button {
+    background-color: $blue;
+    box-shadow: $shadow;
+    transition: 0.2s linear all;
+    border: none;
+    color: $off-white;
+    cursor: pointer;
+    padding: $xs $s;
+    margin-top: $s;
+}
+#confirm-save-button:hover {
+    background-color: darken($blue, 20%);
+}

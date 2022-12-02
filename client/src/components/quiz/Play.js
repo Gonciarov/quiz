@@ -6,8 +6,8 @@ import M from 'materialize-css';
 import isEmpty from '../../utils/isEmpty';
 import withRouter from '../../utils/withRouter';
 import classnames from 'classnames';
-import Results from './Results'
-
+import Results from './Results';
+import Dialog from './Dialog';
 
 
 class Play extends React.Component {
@@ -33,6 +33,7 @@ class Play extends React.Component {
             optionsButtonDisabled: false,
             previousRandomNumbers: [],
             time: {},
+            isOpen: false
         }
         this.interval = null
     };
@@ -324,7 +325,7 @@ startTimer = () => {
                     seconds: 0
                 }
             }, () => {
-                this.displayResults("Time out!")
+                this.displayResults()
             })
         } else {
             this.setState({
@@ -339,7 +340,7 @@ startTimer = () => {
 
 displayResults = () => {
     document.getElementById("questions").innerHTML =  document.getElementById("results").innerHTML;
-    document.getElementById("results-button-container").style.display = "inline-block"
+    document.getElementById("results-button-container").style.display = "inline-block";
   
 }
 
@@ -378,6 +379,14 @@ handleOptionClick = (e) => {
             }
         })}
     }}
+
+    handleDialogClose = () => {
+        this.setState({isOpen: false})
+    }
+
+    openDialog = (e) => {
+        this.setState({isOpen: true})
+    }
 
    render() {
 
@@ -443,6 +452,7 @@ handleOptionClick = (e) => {
                     wrongAnswers={this.state.wrongAnswers}
                 />
                 </div>
+               
 
         </Fragment>
        );

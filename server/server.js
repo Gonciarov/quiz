@@ -31,7 +31,7 @@ app.post("/save-result", (req, res) => {
 })
 
 app.post("/test", (req, res) => {
-    let name = JSON.parse(req.body.name)
+    let name = JSON.parse(req.body.name);
 })
 
 app.listen(5000, () => {

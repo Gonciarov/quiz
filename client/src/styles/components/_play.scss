@@ -242,6 +242,7 @@ h5 {
 
 
     #results-button-container {
+        display: none;
         text-align: center;
          padding: $md;
          width: 80%;
@@ -259,6 +260,14 @@ h5 {
         transition: 0.2s linear all;
       
      }
+
+     .mute{
+         pointer-events: none;
+     }
+
+
+
+  
 
 
 
