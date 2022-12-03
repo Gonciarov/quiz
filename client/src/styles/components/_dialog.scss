@@ -45,3 +45,8 @@
 #confirm-save-button:hover {
     background-color: darken($blue, 20%);
 }
+
+#not-matching {
+    visibility: hidden;
+    color: $red;
+}

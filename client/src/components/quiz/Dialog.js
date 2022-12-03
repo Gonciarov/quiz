@@ -11,11 +11,12 @@ class Dialog extends Component {
        }
    }
     handleNameChange = (e) => {
+        document.getElementById("not-matching").style.visibility = "hidden"
         this.setState({name: e.target.value})
-        console.log(this.state.name)
     }
 
     handlePrisonNumberChange = (e) => {
+        document.getElementById("not-matching").style.visibility = "hidden"
         this.setState({prisonNumber: e.target.value})
     }
 
@@ -25,15 +26,25 @@ class Dialog extends Component {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({result: this.props.result.toString() + '%', name: this.state.name, prisonNumber: this.state.prisonNumber})
       };
-      console.log(this.state.name, this.state.prisonNumber)
-      fetch(`http://localhost:5000/save-result`, requestOptions);
-      M.toast({
-       html: 'Congrats! Saved to Hall of Fame!',
-       classes: 'toast-saved',
-       displayLength: 1500
-   });
-   document.getElementById('results-button-container').style.display = "none";
-   this.props.onClose();
+    
+      fetch(`http://localhost:5000/save-result`, requestOptions)
+      .then((response) => response.json()).then((status) => {
+        if (status["status"] !== 'ok') {
+            document.getElementById("not-matching").innerHTML = status["status"]
+            document.getElementById("not-matching").style.visibility = "visible"
+            this.setState({name: '', prisonNumber: ''})
+            document.getElementById('name').value = ''
+            document.getElementById('prison-number').value = ''
+        } else {
+            M.toast({
+                html: 'Congrats! Saved to Hall of Fame!',
+                classes: 'toast-saved',
+                displayLength: 1500
+            });
+            document.getElementById('results-button-container').style.display = "none";
+            this.props.onClose();
+        }
+      });
 }
 
     render() {
@@ -41,9 +52,10 @@ class Dialog extends Component {
             <div className="dialog">
                 <button className="dialog-close-button" onClick={this.props.onClose}>x</button>
                 <div id="input-container">
-                    <input type="text" onChange={this.handleNameChange} placeholder="name"></input>
-                    <input type="text" onChange={this.handlePrisonNumberChange} placeholder="prison number"></input>
+                    <input id="name" type="text" onChange={this.handleNameChange} placeholder="name"></input>
+                    <input id="prison-number" type="text" onChange={this.handlePrisonNumberChange} placeholder="prison number"></input>
                     <button id="confirm-save-button" onClick={this.handleSubmit}>Save</button>
+                    <p id="not-matching">User with this prison number does not exist</p>
                     </div>
                 <div>{this.props.children}</div>
             </div>

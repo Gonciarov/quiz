@@ -5,8 +5,6 @@ import Dialog from './Dialog';
 
 function Results({score, numberOfQuestions, correctAnswers, wrongAnswers}) {
   let [isOpen, setIsopen] = useState(false);
-  let [name, setName] = useState('');
-  let navigate = useNavigate();
   let result = Math.trunc(100 * correctAnswers / numberOfQuestions)
 
   function handleDialogClose() {
