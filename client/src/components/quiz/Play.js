@@ -311,12 +311,12 @@ handleFiftyFifty = () => {
 }
 
 startTimer = () => {
-    const countDownTime = Date.now() + 182000;
+    const countDownTime = Date.now() + 188000;
     this.interval = setInterval(() => {
         const now = new Date();
         const distance = countDownTime - now;
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
         if (distance < 0) {
             clearInterval(this.interval);
             this.setState({
@@ -328,6 +328,10 @@ startTimer = () => {
                 this.displayResults()
             })
         } else {
+            console.log(seconds.toString().length)
+            if (seconds.toString().length === 1) {
+                seconds = '0' + seconds
+            }
             this.setState({
                 time: {
                     minutes,
