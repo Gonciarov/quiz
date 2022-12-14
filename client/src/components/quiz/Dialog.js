@@ -24,7 +24,7 @@ class Dialog extends Component {
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({result: this.props.result.toString() + '%', name: this.state.name, prisonNumber: this.state.prisonNumber})
+        body: JSON.stringify({quizName: this.props.quizName, result: this.props.result.toString() + '%', name: this.state.name, prisonNumber: this.state.prisonNumber})
       };
     
       fetch(`http://localhost:5000/save-result`, requestOptions)

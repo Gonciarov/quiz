@@ -19,10 +19,9 @@ const Home = () => (
                         <Link className='play-button' to="/play/instructions">Play</Link>
 
                 </div>
-                <div className="auth-container">
+                <div className="hof-container">
                    
-                       <Link className="auth-buttons" id="login-button" to="/login">Login</Link>
-                       <Link className="auth-buttons" id="register-button" to="/register">Register</Link>
+                       <Link className="hof-buttons" id="hof-button" to="/hall-of-fame">Hall of Fame</Link>
                   
                 </div>
                 <h1>Quiz app</h1>

@@ -55,41 +55,33 @@ body {
         box-shadow: none;
     }
 
-    .auth-container {
+    .hof-container {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         margin-top: $lg;
         transition: 0.3s linear all;
     }
 
 
 
-    #login-button {
+    #hof-button {
         background-color: $red;
     }
 
-    #login-button:hover {
+    #hof-button:hover {
         background-color: darken($red, 10%);
         box-shadow: none;
     }
 
-    #register-button {
-        background-color: $blue;
-    }
 
-    #register-button:hover {
-        background-color: darken($blue, 10%);
-        box-shadow: none;
-    }
-
-    .auth-container .auth-buttons {
+    .hof-container .hof-buttons {
         color: $off-white;
         cursor: pointer;
         border-radius: $button-radius;
         padding: $n 0;
         text-align: center;
-        width: 45%;
+        width: 100%;
         box-shadow: $shadow;
     }
 }

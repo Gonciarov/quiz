@@ -13,7 +13,7 @@ class Menu extends React.Component {
     componentDidMount() {
         fetch(`http://localhost:5000/titles`)
         .then((response) => response.json())
-        .then((data) => this.setState(({quizTitles: data})))
+        .then((data) => this.setState({quizTitles: JSON.parse(data)}))
     }
 
     render() {
@@ -21,7 +21,7 @@ class Menu extends React.Component {
         return (
             <div className="menu">
            {quizTitles.map((title, index) => (
-                <Link className="menu-item" key={index} to={`/${Object.keys(title)}`}>{Object.values(title)}</Link>
+                <Link className="menu-item" key={index} to={`/${title["id"]}`}>{title["name"]}</Link>
             ))}
             </div>
             

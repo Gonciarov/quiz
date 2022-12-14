@@ -5,15 +5,13 @@ import { faDivide, faLightbulb, faClock, faSpinner } from '@fortawesome/free-sol
 import M from 'materialize-css';
 import isEmpty from '../../utils/isEmpty';
 import withRouter from '../../utils/withRouter';
-import classnames from 'classnames';
 import Results from './Results';
-import Dialog from './Dialog';
-
 
 class Play extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            quizName: this.props.params.name,
             prisonNumber: this.props.params.prisonNumber,
             questions: [],
             currentQuestion: {},
@@ -42,7 +40,7 @@ class Play extends React.Component {
 
     componentDidMount () {
         
-        fetch(`http://localhost:5000/${this.props.params.name}`)
+        fetch(`http://localhost:5000/quizzes/${this.props.params.name}`)
         .then((response) => response.json())
         .then((data) => this.setState(({questions: data}), () => {
             this.displayQuestions(
@@ -449,8 +447,8 @@ handleOptionClick = (e) => {
                     
                 </div>
                 
-                <Results 
-                    score={this.state.score}
+                <Results
+                    quizName={this.state.quizName}
                     numberOfQuestions={this.state.numberOfQuestions}
                     correctAnswers={this.state.correctAnswers}
                     wrongAnswers={this.state.wrongAnswers}

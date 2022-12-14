@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import M from 'materialize-css';
 import Dialog from './Dialog';
 
-function Results({score, numberOfQuestions, correctAnswers, wrongAnswers}) {
+function Results({quizName, numberOfQuestions, correctAnswers, wrongAnswers}) {
   let [isOpen, setIsopen] = useState(false);
   let result = Math.trunc(100 * correctAnswers / numberOfQuestions)
 
@@ -40,7 +40,7 @@ function Results({score, numberOfQuestions, correctAnswers, wrongAnswers}) {
       <button id="record" onClick={handleSubmit}>Save</button> 
   </div>
   
-    <Dialog isOpen={isOpen} result={result} onClose={handleDialogClose}>
+    <Dialog isOpen={isOpen} quizName={quizName} result={result} onClose={handleDialogClose}>
        
     </Dialog>
    </div>
