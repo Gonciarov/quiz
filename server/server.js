@@ -71,9 +71,9 @@ app.post("/test", (req, res) => {
 app.get('/hall-of-fame', cors(), (req, res) => {
     const rawData = fs.readFileSync('results.json');
     const data = JSON.parse(rawData);
-
-    console.log(JSON.stringify(data.results));
-   res.send(JSON.stringify([{"name": "alsi", "quiz": "trivia", "result": "100%"}]))
+    const rawTitles = fs.readFileSync('questions/titles.json');
+    const titles = JSON.parse(rawTitles);
+   res.send(JSON.stringify({"results": data.results, "titles": titles.titles}));
 })
 
 
