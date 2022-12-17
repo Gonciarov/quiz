@@ -4,6 +4,7 @@ import M from 'materialize-css';
 import Dialog from './Dialog';
 
 function Results({quizName, numberOfQuestions, correctAnswers, wrongAnswers}) {
+  let navigate = useNavigate();
   let [isOpen, setIsopen] = useState(false);
   let result = Math.trunc(100 * correctAnswers / numberOfQuestions)
 
@@ -18,10 +19,12 @@ function Results({quizName, numberOfQuestions, correctAnswers, wrongAnswers}) {
   }
 
   function handleSubmit(e) {
-   
   openDialog();
-  
   }
+
+  function handleQuitClick() {
+  navigate('/')
+}
 
   return (
     <div>
@@ -36,14 +39,18 @@ function Results({quizName, numberOfQuestions, correctAnswers, wrongAnswers}) {
 
    </div>
    <div id="results-button-container">
-      <Link className='play-button' to="/menu"><button id="resultsquit-button">Quit</button></Link>
+      <Link className='play-button' to="/"><button id="resultsquit-button">Quit</button></Link>
       <button id="record" onClick={handleSubmit}>Save</button> 
   </div>
   
     <Dialog isOpen={isOpen} quizName={quizName} result={result} onClose={handleDialogClose}>
        
     </Dialog>
+    <div id="results-button-container-after">
+                <button id="results-quit-button" onClick={handleQuitClick}>Quit</button>
+            </div>
    </div>
+   
   )
 }
 

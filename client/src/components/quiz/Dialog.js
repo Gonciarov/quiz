@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import M from 'materialize-css';
-import { useNavigate } from 'react-router-dom';
+import withRouter from '../../utils/withRouter';
 
 class Dialog extends Component {
    constructor(props) {
@@ -42,7 +42,9 @@ class Dialog extends Component {
                 displayLength: 1500
             });
             document.getElementById('results-button-container').style.display = "none";
+            document.getElementById('results-button-container-after').style.display = "block";
             this.props.onClose();
+    
         }
       });
 }
@@ -72,4 +74,4 @@ class Dialog extends Component {
     }
 }
 
-export default Dialog;
+export default withRouter(Dialog);

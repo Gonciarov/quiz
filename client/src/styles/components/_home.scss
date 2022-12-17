@@ -10,6 +10,7 @@ body {
     display: flex;
     justify-content: space-around;
     section {
+        margin-top: $lg;
         background-color: rgba(0, 0, 0, $alpha: 0.7);
         height: 80%;
         width: 35%;
@@ -90,6 +91,14 @@ body {
     #home section {
         padding: 0 $n;
         width: 50%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    #home section {
+        padding: 0 $n;
+        width: 70%;
         height: 100%;
     }
 }

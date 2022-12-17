@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
+import withRouter from '../utils/withRouter';
 
-export default class Hof extends Component {
+ class Hof extends Component {
 
     constructor(props) {
         super(props);
@@ -27,6 +28,9 @@ export default class Hof extends Component {
           )
     }
 
+    handleQuitClick = () => { 
+          this.props.navigate('/')
+  }
 
 
   render() {
@@ -34,7 +38,7 @@ export default class Hof extends Component {
     console.log(students)
    
     return (
-
+      <Fragment>
         <div className="hof">
          {quizTitles.map((title, index) => (
          
@@ -46,7 +50,13 @@ export default class Hof extends Component {
             ))}
           </div> : <p></p>
          ))}
+            <div className="button-container">
+                <button id="quit-button" data-testid="quit-button" onClick={this.handleQuitClick}>Quit</button>
+            </div>
         </div>
+        </Fragment>
     )
   }
 }
+
+export default withRouter(Hof);

@@ -258,7 +258,26 @@ h5 {
         background-color: $red;
         box-shadow: $shadow;
         transition: 0.2s linear all;
-      
+     }
+
+     #results-button-container-after {
+        display: none;
+        text-align: center;
+         padding: $md;
+         width: 80%;
+         margin-left: $md;
+     }
+
+     #results-button-container-after button {
+        left: 50%;
+        border: none;
+        color: $off-white;
+        cursor: pointer;
+        margin: $xs;
+        padding: $xs $s;
+        background-color: $red;
+        box-shadow: $shadow;
+        transition: 0.2s linear all;
      }
 
      .mute{
