@@ -31,31 +31,27 @@ app.get('/quizzes/:quizId', cors(), (req, res) => {
 
 app.post("/save-result", checkStudentNumber, (req, res) => {
     let {result, name, prisonNumber, quizName} = req.body;
-    console.log(quizName)
-    result = result.toLowerCase();
     name = name.toLowerCase();
+    result = result.toString();
     prisonNumber = prisonNumber.toLowerCase();
     let rawdata = fs.readFileSync('results.json');
     let data = JSON.parse(rawdata);
-    if (typeof data.results[prisonNumber] != "undefined") {
-        if (typeof data.results[prisonNumber][quizName] != "undefined") {
-        replace({
-            regex: data.results[prisonNumber][quizName],
-            replacement: result,
-            paths: ['results.json'],
-            recursive: true,
-            silent: true,
-        });
+    if (typeof data[quizName] != "undefined") {
+        if (typeof data[quizName][prisonNumber] != "undefined") {
+        data[quizName][prisonNumber] = result;
+        fs.writeFile('results.json', JSON.stringify(data), 'utf8', err => {
+            if (err) throw err;
+        })
     } else {
-        data.results[prisonNumber][quizName] = result;
+        data[quizName][prisonNumber] = result;
         fs.writeFile('results.json', JSON.stringify(data), 'utf8', err => {
             if (err) throw err;
         })
     }
         res.send(JSON.stringify({status: 'ok'}));
      } else {
-        data.results[prisonNumber] = {};
-        data.results[prisonNumber][quizName] = result;
+        data[quizName] = {};
+        data[quizName][prisonNumber] = result;
         fs.writeFile('results.json', JSON.stringify(data), 'utf8', err => {
             if (err) throw err;
             res.send(JSON.stringify({status: 'ok'}));
@@ -71,9 +67,13 @@ app.post("/test", (req, res) => {
 app.get('/hall-of-fame', cors(), (req, res) => {
     const rawData = fs.readFileSync('results.json');
     const data = JSON.parse(rawData);
-    const rawTitles = fs.readFileSync('questions/titles.json');
-    const titles = JSON.parse(rawTitles);
-   res.send(JSON.stringify({"results": data.results, "titles": titles.titles}));
+    res.json(data);
+})
+
+app.get('/students-list', cors(), (req, res) => {
+    const rawStudents = fs.readFileSync('students.json');
+    const students = JSON.parse(rawStudents);
+    res.json(students);
 })
 
 

@@ -441,7 +441,7 @@ handleOptionClick = (e) => {
                     </div>
                 </div>
                 <div className="button-container">
-                <button id="quit-button" onClick={this.handleQuitClick}>Quit</button>
+                <button id="quit-button" data-testid="quit-button" onClick={this.handleQuitClick}>Quit</button>
                         </div>
                 
                     

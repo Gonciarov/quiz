@@ -36,7 +36,7 @@ function Results({quizName, numberOfQuestions, correctAnswers, wrongAnswers}) {
 
    </div>
    <div id="results-button-container">
-      <Link className='play-button' to="/play/instructions"><button id="resultsquit-button">Quit</button></Link>
+      <Link className='play-button' to="/menu"><button id="resultsquit-button">Quit</button></Link>
       <button id="record" onClick={handleSubmit}>Save</button> 
   </div>
   

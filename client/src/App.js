@@ -14,7 +14,7 @@ function App() {
       <Routes>
 
 <Route path="/" exact element={<Home/>}/>
-<Route path="/play/instructions" exact element={<Menu/>}/>
+<Route path="/menu" exact element={<Menu/>}/>
 <Route path="/play/start" exact element={<Start/>}/>
 <Route path="/results" exact element={<Results/>}/>
 <Route path="/:name" element={<Play/>}/>
