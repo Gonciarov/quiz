@@ -87,6 +87,7 @@ class Play extends React.Component {
                     if (this.state.numberOfAnsweredQuestions < this.state.questions.length) {
                         setTimeout(this.showQuestions, 500);
                         this.showOptions();
+                        this.enableHints();
                         if (this.state.usedFiftyFifty === false) {
                             this.showFiftyFifty();
                         }
@@ -240,13 +241,23 @@ handleQuitClick = () => {
   }
 
   showFiftyFifty = () => {
-    document.getElementById('lifeline-area').style.display = "block";
+    document.getElementById('fifty-fifty').style.display = "block";
     document.getElementById('lifeline-hints').style.display = "block";
     document.getElementById('replace').style.display = "none";
 }
+
+disableHints = () => {
+    document.getElementById("fifty-fifty").classList.add("mute")
+    document.getElementById("lifeline-hints").classList.add("mute")
+}
+
+enableHints = () => {
+    document.getElementById("fifty-fifty").classList.remove("mute")
+    document.getElementById("lifeline-hints").classList.remove("mute")
+}
   
 handleHints = () => {
-    document.getElementById('lifeline-area').style.display = "none";
+    document.getElementById('fifty-fifty').style.display = "none";
     if (this.state.hints > 0){
     const options = Array.from(document.querySelectorAll('.option'))
     let indexOfAnswer;
@@ -300,7 +311,7 @@ handleFiftyFifty = () => {
             }
         });
         badIndexes = this.shuffleArray(badIndexes);
-        document.getElementById('lifeline-area').style.display = "none";
+        document.getElementById('fifty-fifty').style.display = "none";
     for (let i = 0; i<badIndexes.length -1; i++) {
         options[badIndexes[i]].style.display = "none";
         }
@@ -350,6 +361,7 @@ handleOptionClick = (e) => {
     if (this.state.optionsButtonDisabled) {
         return
     } else {
+       this.disableHints();
         this.setState({optionsButtonDisabled: true});
         let options = Array.from(document.querySelectorAll('.option'));
         if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
@@ -402,7 +414,7 @@ handleOptionClick = (e) => {
                 <FontAwesomeIcon icon={faSpinner} className="spin" /></div>
                 <div id="questions" className="questions" data-testid="questions">
                     <div className="lifeline-container">
-                    <div><p id="lifeline-area" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
+                    <div><p id="fifty-fifty" onClick={this.handleFiftyFifty} className="lifeline-fifty-fifty"><FontAwesomeIcon icon={faDivide} />
                         
                     </p><p id="replace">.</p></div>
                     <p></p>
