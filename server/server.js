@@ -4,8 +4,12 @@ const cors = require('cors');
 const bodyParser = require('body-parser'); 
 const fs = require('fs');
 const replace = require('replace');
+require("dotenv").config();
+const SERVER_PORT = process.env.SERVER_PORT;
+const CLIENT_HOST = process.env.CLIENT_HOST;
+const CLIENT_PORT = process.env.CLIENT_PORT;
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: `http://${CLIENT_HOST}:${CLIENT_PORT}`
 }));
 app.use(bodyParser.json());
 
@@ -89,7 +93,7 @@ function checkStudentNumber(req, res, next) {
     }
 }
 
-app.listen(5000, () => {
-    console.log(`Server running on port 5000`)
+app.listen(SERVER_PORT, () => {
+    console.log(`Server running on ${SERVER_PORT}`)
 })
 
