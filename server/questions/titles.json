@@ -1,6 +1,8 @@
 {"titles":
 [
     {"id":"trivia", "name": "Trivia Quiz"},
-    {"id":"trivia-new", "name": "Another Trivia Quiz"}
+    {"id":"trivia-new", "name": "Another Trivia Quiz"},
+    {"id":"javascript-beginners", "name": "JavaScript for beginners"}
+
 ]
 }

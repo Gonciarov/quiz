@@ -35,7 +35,7 @@ import withRouter from '../utils/withRouter';
 
   render() {
     const {quizTitles, results, students} = this.state
-    console.log(students)
+    console.log(quizTitles[0])
    
     return (
       <Fragment>

@@ -1,0 +1,240 @@
+1. Which of the following is NOT a JavaScript primitive data type?
+String
+Number
+Boolean
+Variable
+
+String, Number, and Boolean are JS primitive data types, and Variable is not a type of data at all, it is just a container for storing data
+
+2. What console.log(typeof [0,1,2]) will print to the console?
+Object
+Array
+Undefined
+
+true
+
+Any data that is not of a primitive data type (Null, Boolean, Undefined, String, BigInt, Number, or Symbol), is of Object type in JS.
+
+
+3. What is Hoisting in JavaScript?
+Giving a proper name to each variable in the code
+Convention requiring programmers to name variables with camelCase
+Default behaviour of JS where all the variable and function declarations are moved on top.
+There is no such a thing as Hoisting in JS
+
+Hoisting is the default behaviour of javascript where all the variable and function declarations are moved on top. This means that irrespective of where the variables and functions are declared, they are moved on top of the scope. The scope can be both local and global.
+
+4. What console.log(2 == "2", 2 === "2") will print to the console?
+true false
+false true
+NaN false
+Undefined false
+Comparison operator “==” compares only values, whereas comparison operator “===” is used to compare both values and types.
+
+5. Which of the following is false statement?
+
+‘let’ keyword was introduced to JavaScript later than ‘var’ keyword
+Any variable specified with ‘var’ is accessible anywhere in the function, whereas ‘let’ is limited to the block where it is declared
+‘var’ cannot be used for data of Object type, we should use only ‘let’ for that
+Unlike ‘var’, ‘let’ can only be accessed after its declaration is reached
+
+Neither ‘var’ nor ‘let’ are not used to declare read-only constants.
+
+let allows you to declare variables that are limited to the scope of a block statement, or expression on which it is used, unlike the var keyword, which declares a variable globally, or locally to an entire function regardless of block scope.
+
+6. Which of the following is an example of Implicit Type Coercion?
+3 + ‘3’ // returns ‘33’
+3 + ‘3’ // returns ‘NaN’
+
+(33).toString() // returns ‘33’
+typeof 33 // returns ‘number’
+
+
+Implicit type coercion in JavaScript is the automatic conversion of value from one data type to another. It takes place when the operands of an expression are of different data types.
+
+
+7. It is possible to assign another type of data to the variable (like: let name= “John”; name = 34)
+true
+false
+Since javascript is a loosely(dynamically) typed language, variables in JS are not associated with any type. A variable can hold the value of any data type.
+
+
+8. Which option describes the following best?
+
+(function(){ 
+  // Do something;
+})();
+
+
+The function that runs as soon as it is defined;
+The function that accepts itself as an argument and returns nothing;
+The perfect example of infinite loop;
+Some outdated way to pass an argument to a function
+An Immediately Invoked Function ( known as IIFE and pronounced as IIFY) is a function that runs as soon as it is defined.
+
+
+9. What does ‘this’ refer to in the following example?
+
+var goodExample = {
+    name:  "Andrew",
+    getName: function(){
+    console.log(this.name);
+  }
+}
+
+to a higher-order function outside of this object
+to a global variable
+to the Window object
+to the object specified as goodExample
+
+The “this” keyword refers to the object that the function is a property of. The value of the “this” keyword always depends on the object that is invoking the function.
+
+
+10. What line of code do we need to apply underneath the following code to receive “John is awesome” sentence?
+
+function saySomething(message){
+  return this.name + " is " + message;
+}     
+var person4 = {name:  "John"};     
+
+// Your line here
+
+saySomething(person4, "awesome");
+saySomething.call(person4, "awesome");
+saySomething.apply(person4, "awesome");
+person4.saySomething(person4, "awesome");
+
+‘call()’ method invokes a method (function) by specifying the owner object
+
+
+11. Which of the following belongs to characteristics of strict mode in JavaScript?
+
+Duplicate arguments are not allowed by developers.
+In strict mode, you won't be able to use the JavaScript keyword as a parameter or function name.
+Engineers are not allowed to create global variables in Strict Mode.
+All from above
+
+In ECMAScript 5, a new feature called JavaScript Strict Mode allows you to write a code or a function in a "strict" operational environment. In most cases, this language is 'not particularly severe' when it comes to throwing errors. In 'Strict mode,' however, all forms of errors, including silent errors, will be thrown. As a result, debugging becomes a lot simpler.  
+
+
+12. Explain High Order Functions in JavaScript.
+
+Functions that can take other functions as arguments or return other functions
+Functions that take more than one argument
+Functions that can invoke themselves
+Functions that do not take any arguments
+
+
+13. When we want to include JS script from separate file script.js into our HTML page, how can we do that?
+
+<script src="./script.js"></script>
+<script location="./script.js"></script>
+<src="./script.js">
+<script ="./script.js"></script>
+
+
+14. What this code will return to console?
+
+function returnVariable(n) {
+	return (72)
+}
+
+console.log(n*2)
+n is not defined
+n
+72
+144
+
+Output will be “n is not defined” since n variable has function scope
+
+
+15. The ability of a function to store a variable for further reference even after it is executed is called…
+
+Closure
+Memoization
+Prototype
+Callback
+
+Closures are an ability of a function to remember the variables and functions that are declared in its outer scope.
+
+
+16. Which of the following is false?
+
+Math objects inherit properties from the Math prototype
+Array objects inherit properties from the Array prototype.
+Date objects inherit properties from the Date prototype
+Every prototype inherits properties and methods from the JavaScript.prototype.
+
+
+Comment: Every prototype inherits properties and methods from the Object.prototype.
+
+
+17. Functions that are used as an argument to another function are called…
+
+Recycled functions
+Callback functions
+Infinite functions
+Comeback functions
+
+A callback is a function that will be executed after another function gets executed. In javascript, functions are treated as first-class citizens, they can be used as an argument of another function, can be returned by another function, and can be used as a property of an object.
+
+18. 
+
+function add(number) {
+  if (number <= 0) {
+    return 0;
+  } else {
+    return number + add(number - 1);
+  }
+}
+
+The function above is an example of…
+
+Memorization
+Recursion
+Multiplication
+Closure
+
+Recursion is a technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result.
+
+
+19. function Person(name,age,gender){
+  this.name = name;
+  this.age = age;
+  this.gender = gender;
+}
+
+The function above is an example of…
+
+Constructor function
+Scope Chain
+Iteration
+Memoization
+
+Constructor functions are used to create objects in javascript
+
+
+20. What DOM stands for?
+
+Document Object Model
+Document-Oriented Modelling
+Duplication Object Memory
+Digital Orientation Method
+
+DOM stands for Document Object Model.  DOM is a programming interface for HTML and XML documents.
+
+21. What is charAt() method used for?
+
+To retrieve a character from a certain index
+To return a length of a string
+To check if the argument is a string
+To return index of a certain character
+
+The charAt() function of the JavaScript string finds a char element at the supplied index. 
+
+
+
+
+
+
+

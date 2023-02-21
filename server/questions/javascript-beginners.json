@@ -1,0 +1,210 @@
+[
+    {"question": "Which option describes the following best? \n\n(function(){ \n    // Do something; \n })();",
+        "options": [
+            "The function that runs as soon as it is defined",
+"The function that accepts itself as an argument and returns nothing",
+"The perfect example of infinite loop",
+"Some outdated way to pass an argument to a function"
+        ],
+        "answer": "The function that runs as soon as it is defined",
+        "commentForCorrect": "An Immediately Invoked Function ( known as IIFE and pronounced as IIFY) is a function that runs as soon as it is defined.",
+        "commentForIncorrect": "An Immediately Invoked Function ( known as IIFE and pronounced as IIFY) is a function that runs as soon as it is defined"
+    },
+    {"question": "Which of the following is NOT a JavaScript primitive data type?",
+    "answer": "Variable",
+    "options":  ["String","Number","Boolean","Variable"],
+    "commentForCorrect": "String, Number, and Boolean are JS primitive data types, and Variable is not a type of data at all, it is just a container for storing data",
+    "commentForIncorrect": "String, Number, and Boolean are JS primitive data types, and Variable is not a type of data at all, it is just a container for storing data"
+    },
+    {"question": "What console.log(typeof [0,1,2]) will print to the console?",
+        "answer": "Object",
+        "options":  ["Object", "Array", "Undefined", "true"],
+        "commentForCorrect": "Any data that is not of a primitive data type (Null, Boolean, Undefined, String, BigInt, Number, or Symbol), is of Object type in JS.",
+        "commentForIncorrect": "Any data that is not of a primitive data type (Null, Boolean, Undefined, String, BigInt, Number, or Symbol), is of Object type in JS."
+        },
+    {"question": "What is Hoisting in JavaScript?",
+        "answer": "Default behaviour of JS where all the variable and function declarations are moved on top.",
+        "options":  [
+            "Giving a proper name to each variable in the code",
+            "Convention requiring programmers to name variables with camelCase",
+            "Default behaviour of JS where all the variable and function declarations are moved on top.",
+            "There is no such a thing as Hoisting in JS"
+        ],
+        "commentForCorrect": "Hoisting is the default behaviour of javascript where all the variable and function declarations are moved on top. This means that irrespective of where the variables and functions are declared, they are moved on top of the scope. The scope can be both local and global.",
+        "commentForIncorrect": "Hoisting is the default behaviour of javascript where all the variable and function declarations are moved on top. This means that irrespective of where the variables and functions are declared, they are moved on top of the scope. The scope can be both local and global."
+        },
+    
+    {"question": "What console.log(2 == \"2\", 2 === \"2\") will print to the console?",
+        "answer": "true false",
+        "options":  [
+            "true false",
+            "false true",
+            "NaN false",
+            "Undefined false"
+        ],
+        "commentForCorrect": "Comparison operator \"==\" compares only values, whereas comparison operator \"===\" is used to compare both values and types.",
+        "commentForIncorrect": "Comparison operator \"==\" compares only values, whereas comparison operator \"===\" is used to compare both values and types."
+        },
+    {"question": "Which of the following is false statement?",
+        "answer": "\"var\" cannot be used for data of Object type, we should use only \"let\" for that",
+        "options":  [
+            "\"let\" keyword was introduced to JavaScript later than \"var\" keyword",
+"Any variable specified with ‘var’ is accessible anywhere in the function, whereas ‘let’ is limited to the block where it is declared",
+"\"var\" cannot be used for data of Object type, we should use only \"let\" for that",
+"Unlike \"var\", \"let\" can only be accessed after its declaration is reached",
+"Neither \"var\" nor \"let\" are used to declare read-only constants"
+        ],
+        "commentForCorrect": "\"let\" allows you to declare variables that are limited to the scope of a block statement, or expression on which it is used, unlike the \"var\" keyword, which declares a variable globally, or locally to an entire function regardless of block scope.",
+        "commentForIncorrect": "\"let\" allows you to declare variables that are limited to the scope of a block statement, or expression on which it is used, unlike the \"var\" keyword, which declares a variable globally, or locally to an entire function regardless of block scope."
+        },
+        {"question": "Which of the following is an example of Implicit type coercion?",
+            "options": [
+                "3 + \"3\" // returns \"33\"",
+                "3 + \"3\" // returns ‘NaN",
+                "(33).toString() // returns \"33\"",
+                "typeof 33 // returns \"number\""
+            ],
+            "answer": "3 + \"3\" // returns \"33\"",
+            "commentForCorrect": "Implicit type coercion in JavaScript is the automatic conversion of value from one data type to another. It takes place when the operands of an expression are of different data types.",
+            "commentForIncorrect": "Implicit type coercion in JavaScript is the automatic conversion of value from one data type to another. It takes place when the operands of an expression are of different data types."
+        },
+        {"question": "It is possible to assign another type of data to the variable (like: let name= \"John\"; name = 34)?",
+            "options": ["true", "false"],
+            "answer": "true",
+            "commentForCorrect": "Since JavaScript is a loosely(dynamically) typed language, variables in JS are not associated with any type. A variable can hold the value of any data type.",
+            "commentForIncorrect": "Since JavaScript is a loosely(dynamically) typed language, variables in JS are not associated with any type. A variable can hold the value of any data type."
+        },
+
+        {"question": "What does ‘this’ refer to in the following example? \n\n var goodExample = { \n name:  \"Andrew\",\n getName: function(){ \n console.log(this.name)\n     }\n}",
+            "options": ["to a higher-order function outside of this object",
+                "to a global variable",
+                "to the Window object",
+                "to the object specified as goodExample"],
+            "answer": "to the object specified as goodExample",
+            "commentForCorrect": "The “this” keyword refers to the object that the function is a property of. The value of the “this” keyword always depends on the object that is invoking the function.",
+            "commentForIncorrect": "The “this” keyword refers to the object that the function is a property of. The value of the “this” keyword always depends on the object that is invoking the function."
+        },
+        {"question": "What line of code do we need to apply underneath the following code to receive “John is awesome” sentence? \n\n function saySomething(message){\n return this.name + \" is \" + message;\n } \n var person4 = {name:  \"John\"};\n // Your line here  ",
+            "options": ["saySomething(person4, 'awesome');",
+                "saySomething.call(person4, 'awesome');",
+                "saySomething.apply(person4, 'awesome');",
+                "person4.saySomething(person4, 'awesome');"],
+            "answer": "saySomething.call(person4, 'awesome');",
+            "commentForCorrect": "'call()' method invokes a method (function) by specifying the owner object",
+            "commentForIncorrect": "'call()' method invokes a method (function) by specifying the owner object"
+        },
+        {"question": "Which of the following belongs to characteristics of strict mode in JavaScript?",
+            "options": ["Duplicate arguments are not allowed by developers",
+                "In strict mode, you won't be able to use the JavaScript keyword as a parameter or function name",
+                "Engineers are not allowed to create global variables in Strict Mode",
+                "All from above"],
+            "answer": "Duplicate arguments are not allowed by developers",
+            "commentForCorrect": "In ECMAScript 5, a new feature called JavaScript Strict Mode allows you to write a code or a function in a \"strict\" operational environment. In most cases, this language is 'not particularly severe' when it comes to throwing errors. In 'Strict mode,' however, all forms of errors, including silent errors, will be thrown. As a result, debugging becomes a lot simpler",
+            "commentForIncorrect": "In ECMAScript 5, a new feature called JavaScript Strict Mode allows you to write a code or a function in a \"strict\" operational environment. In most cases, this language is 'not particularly severe' when it comes to throwing errors. In 'Strict mode,' however, all forms of errors, including silent errors, will be thrown. As a result, debugging becomes a lot simpler"
+        },
+        {"question": "Explain High Order Functions in JavaScript",
+            "options": ["Functions that can take other functions as arguments or return other functions",
+                "Functions that take more than one argument",
+                "Functions that can invoke themselves",
+                "Functions that do not take any arguments"],
+            "answer": "Functions that can take other functions as arguments or return other functions",
+            "commentForCorrect": "High Order Functions can take other functions as arguments or return other functions",
+            "commentForIncorrect": "High Order Functions can take other functions as arguments or return other functions"
+        },
+        
+        {"question": "What this code will return to console? \n\n function returnVariable(n) { \n return (72) \n } \n\n console.log(n*2)",
+            "options": ["n is not defined",
+                "n",
+                "72",
+                "144"],
+            "answer": "n is not defined",
+            "commentForCorrect": "Output will be “n is not defined” since n variable has function scope",
+            "commentForIncorrect": "Output will be “n is not defined” since n variable has function scope"
+        },
+        {"question": "Fill the underlined gap here: \"<script _____=\"./script.js\"></script>\"",
+            "options": ["src",
+                "location",
+                "source",
+                "loc"],
+            "answer": "src",
+            "commentForCorrect": "<script src=\"./script.js\"></script> //is the way to include a piece of code from external file",
+            "commentForIncorrect": "<script src=\"./script.js\"></script> //is the way to include a piece of code from external file"
+        },
+        {"question": "The ability of a function to store a variable for further reference even after it is executed is called…",
+            "options": ["Closure",
+                "Memoization",
+                "Prototype",
+                "Callback"],
+            "answer": "Closure",
+            "commentForCorrect": "Closures are an ability of a function to remember the variables and functions that are declared in its outer scope.",
+            "commentForIncorrect": "Closures are an ability of a function to remember the variables and functions that are declared in its outer scope."
+        },
+        {"question": "Which of the following is false?",
+            "options": ["Math objects inherit properties from the Math prototype",
+                "Array objects inherit properties from the Array prototype",
+                "Date objects inherit properties from the Date prototype",
+                "Every prototype inherits properties and methods from the JavaScript.prototype"],
+            "answer": "Every prototype inherits properties and methods from the JavaScript.prototype",
+            "commentForCorrect": "Every prototype inherits properties and methods from the Object.prototype.",
+            "commentForIncorrect": "Every prototype inherits properties and methods from the Object.prototype."
+        },
+        {"question": "Functions that are used as an argument to another function are called…",
+            "options": ["Recycled functions",
+                "Callback functions",
+                "Infinite functions",
+                "Comeback functions"],
+            "answer": "Callback functions",
+            "commentForCorrect": "A callback is a function that will be executed after another function gets executed. In javascript, functions are treated as first-class citizens, they can be used as an argument of another function, can be returned by another function, and can be used as a property of an object.",
+            "commentForIncorrect": "A callback is a function that will be executed after another function gets executed. In javascript, functions are treated as first-class citizens, they can be used as an argument of another function, can be returned by another function, and can be used as a property of an object."
+        },
+        {"question": "function add(number) { \n if (number <= 0) { \n return 0; \n} else {\nreturn number + add(number - 1);\n}\n}\n\n The function above is an example of…",
+            "options": ["Memorization",
+                "Recursion",
+                "Multiplication",
+                "Closure"],
+            "answer": "Recursion",
+            "commentForCorrect": "Recursion is a technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result.",
+            "commentForIncorrect": "Recursion is a technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result."
+        },
+        {"question": "function Person(name,age,gender){ \n this.name = name; \n this.age = age; \n this.gender = gender; \n} \n\n The function above is an example of…",
+            "options": ["Constructor function",
+                "Scope Chain",
+                "Iteration",
+                "Memoization"],
+            "answer": "Constructor function",
+            "commentForCorrect": "Constructor functions are used to create objects in javascript",
+            "commentForIncorrect": "Constructor functions are used to create objects in javascript"
+        },
+        {"question": "What DOM stands for?",
+            "options": ["Document Object Model",
+                "Document-Oriented Modelling",
+                "Duplication Object Memory",
+                "Digital Orientation Method"],
+            "answer": "Document Object Model",
+            "commentForCorrect": "DOM stands for Document Object Model.  DOM is a programming interface for HTML and XML documents.",
+            "commentForIncorrect": "DOM stands for Document Object Model.  DOM is a programming interface for HTML and XML documents."
+        },
+        {"question": "What is charAt() method used for?",
+            "options": ["To retrieve a character from a certain index",
+                "To return a length of a string",
+                "To check if the argument is a string",
+                "To return index of a certain character"],
+            "answer": "Document Object Model",
+            "commentForCorrect": "The charAt() function of the JavaScript string finds a char element at the supplied index.",
+            "commentForIncorrect": "The charAt() function of the JavaScript string finds a char element at the supplied index."
+        },
+        {"question": "In the following example, what job does \"...args\" take? \n\n function randomFunc(...args) { \n // do something \n }",
+            "options": ["It allows randomFunc to receive variable number of arguments",
+                "It requests to specify the type of the argument when calling randomFunc",
+                "It calls an arg function back at the end",
+                "There is no such syntax in Javascript"],
+            "answer": "It allows randomFunc to receive variable number of arguments",
+            "commentForCorrect": "Adding triple dot to arguments is called \"rest operator\". It was introduced in ES6, and it helps a function to receive variable number of arguments",
+            "commentForIncorrect": "Adding triple dot to arguments is called \"rest operator\". It was introduced in ES6, and it helps a function to receive variable number of arguments"
+        }
+]
+
+
+
+
+

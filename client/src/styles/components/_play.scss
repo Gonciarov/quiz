@@ -71,6 +71,11 @@ h5 {
         padding: $n;
         text-align: center;
         width: 90%;
+        white-space: pre-line;
+    }
+
+    p {
+        white-space: pre-wrap;
     }
 
     .option:hover {
@@ -184,6 +189,20 @@ h5 {
 
 #question-with-answers {
     margin-top: $xxl;
+}
+
+#question-with-answers textarea {
+    height: 150px;
+    word-wrap: break-word; 
+    border: none;
+    font-size: 20px;
+    padding: 3px;
+    text-align: center;
+    cursor: auto; 
+}
+
+#question-with-answers textarea:focus {
+   outline: none;
 }
 
 .spin {

@@ -49,8 +49,7 @@ class Play extends React.Component {
                 this.state.nextQuestion,
                 this.state.previousQuestion)
             })) 
-        .then(this.startTimer())
-
+        .then(this.startTimer());
        
     }
 
@@ -426,7 +425,7 @@ handleOptionClick = (e) => {
        <p><span className="left">{currentQuestionIndex + 1} of {numberOfQuestions}</span></p>
                     </div>
         <div id="question-with-answers">
-       <h5 data-testid="question-element">{currentQuestion.question}</h5>
+       <textarea readOnly value={currentQuestion.question}></textarea>
              
                     <div data-testid="options-container" className="options-container">
                     {currentOptions.map((option, index) => 
