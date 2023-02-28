@@ -39,7 +39,10 @@ app.post("/save-result", checkStudentNumber, (req, res) => {
     result = result.toString();
     prisonNumber = prisonNumber.toLowerCase();
     let rawdata = fs.readFileSync('results.json');
+    let studentsList = JSON.parse(fs.readFileSync('students.json'))["students"];
     let data = JSON.parse(rawdata);
+    console.log(data);
+    if (studentsList[prisonNumber] === name) {
     if (typeof data[quizName] != "undefined") {
         if (typeof data[quizName][prisonNumber] != "undefined") {
         data[quizName][prisonNumber] = result;
@@ -61,6 +64,9 @@ app.post("/save-result", checkStudentNumber, (req, res) => {
             res.send(JSON.stringify({status: 'ok'}));
         })
      }
+    } else {
+        res.send(JSON.stringify({status: 'Name and prison number do not match'}));
+    }
 })
 
 app.post("/test", (req, res) => {
